@@ -9,13 +9,16 @@ import Testimonial from "../../../components/Users/Testimonial/Testimonial";
 import Footer from "../Footer/Footer";
 import Hero from "../../../components/Users/Hero/Hero";
 import Header from "../Header/Header";
+import { Outlet } from "react-router-dom";
 
 const Main = () => {
   return (
     <div className="container-xxl bg-white p-0">
       {/* <Spinner /> */}
       <Header/>
-
+      <main>
+        <Outlet/>
+      </main>
       <Service />
       <About />
       <Menu />
