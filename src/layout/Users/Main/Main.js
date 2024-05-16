@@ -19,15 +19,7 @@ const Main = () => {
       <main>
         <Outlet/>
       </main>
-      <Service />
-      <About />
-      <Menu />
-      <Reservation />
-      <Team />
-      <Testimonial />
-
       <Footer />
-      
       <Hero/>
     </div>
   );

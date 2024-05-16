@@ -9,6 +9,7 @@ import Team from './components/page/Users/Team';
 import Testimonial from './components/page/Users/Testimonial';
 import Contact from './components/page/Users/Contact';
 import Login from './Page/Auth/Login';
+import Home from './Page/Home';
 
 
 function App() {
@@ -16,14 +17,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Main />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/testimonial" element={<Testimonial />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={<Main />} >
+          <Route path="/about" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/testimonial" element={<Testimonial />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
