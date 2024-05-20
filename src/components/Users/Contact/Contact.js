@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const Contact = () => {
   return (
     <div className="container-xxl py-5">
             <div className="container">
@@ -72,4 +72,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Contact

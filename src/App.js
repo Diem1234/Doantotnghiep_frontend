@@ -1,15 +1,15 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from './layout/Users/Main/Main';
-import About from './components/page/Users/About';
-import Service from './components/page/Users/Service';
-import Menu from './components/page/Users/Menu';
-import Booking from './components/page/Users/Booking';
-import Team from './components/page/Users/Team';
-import Testimonial from './components/page/Users/Testimonial';
-import Contact from './components/page/Users/Contact';
 import Login from './Page/Auth/Login';
 import Home from './Page/Home';
+import Team from './components/Users/Team/Team';
+import Testimonial from './components/Users/Testimonial/Testimonial';
+import Contact from './components/Users/Contact/Contact';
+import Reservation from './components/Users/Reservation/Reservation';
+import About from './components/Users/About/About';
+import Service from './components/Users/Service/Service';
+import Menu from './components/Users/Menu/Menu';
 
 
 function App() {
@@ -18,11 +18,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Main />} >
-          <Route path="/about" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/booking" element={<Booking />} />
+          <Route path="/booking" element={<Reservation />} />
           <Route path="/team" element={<Team />} />
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/contact" element={<Contact />} />
