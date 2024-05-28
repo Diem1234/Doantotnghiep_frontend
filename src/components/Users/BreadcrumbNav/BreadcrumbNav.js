@@ -10,10 +10,10 @@ const BreadcrumbNav = ({ title, breadcrumbItems }) => {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb justify-content-center text-uppercase">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <a href="#">Trang Chủ</a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Pages</a>
+                  <a href="#">TRang</a>
                 </li>
                 <li
                   className="breadcrumb-item text-white active"

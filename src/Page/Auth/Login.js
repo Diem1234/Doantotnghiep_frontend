@@ -49,13 +49,7 @@ const Login = () => {
         });
   
         // Save user info and token in localStorage
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            user: data.user,
-            token: data.token,
-          })
-        );
+        localStorage.setItem("token", JSON.stringify(data.token));
         alert("Login success!");
         navigate(location.state?.from || "/");
       } else {
@@ -73,7 +67,7 @@ const Login = () => {
       <CContainer>
         <CRow className="justify-content-center ">
           <CCol md={8}>
-            <CCardGroup className="shadow pt-5 ">
+            <CCardGroup className="shadow ">
               <CCard className="p-4 pt-5 pb-5 shadow">
                 <CCardBody>
                   <CForm onSubmit={handleSubmit}>
@@ -127,7 +121,7 @@ const Login = () => {
               >
                 <CCardBody className="text-center">
                   <div>
-                    <h2>Cosmestic</h2>
+                    <h1 className="text-white">Bếp Việt</h1>
                     <p>
                       When logging into the system of a website or application,
                       the user will need to provide login information to

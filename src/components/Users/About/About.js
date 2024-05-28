@@ -23,16 +23,16 @@ const About = () => {
                 </div>
                 <div className="col-lg-6">
                     <h5 className="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
-                    <h1 className="mb-4">Welcome to <i className="fa fa-utensils text-primary me-2"></i>Restoran</h1>
-                    <p className="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos erat ipsum et lorem et sit, sed stet lorem sit.</p>
-                    <p className="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                    <h1 className="mb-4">Chào mừng đến với <i className="fa fa-utensils text-primary me-2"></i>Bếp Việt</h1>
+                    <p className="mb-4">Điểm đến ẩm thực số 1 dành cho những người yêu thích các món ăn truyền thống và sáng tạo của Việt Nam!</p>
+                    <p className="mb-4">Tại Bếp Việt, chúng tôi tự hào giới thiệu đến bạn hàng nghìn công thức nấu ăn đa dạng, từ những món ăn dân dã đến những sáng tạo mới lạ. Mỗi món ăn được chế biến tỉ mỉ với những nguyên liệu tươi ngon và chất lượng nhất, nhằm mang đến những trải nghiệm ẩm thực tuyệt vời.</p>
                     <div className="row g-4 mb-4">
                         <div className="col-sm-6">
                             <div className="d-flex align-items-center border-start border-5 border-primary px-3">
                                 <h1 className="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">15</h1>
                                 <div className="ps-4">
-                                    <p className="mb-0">Years of</p>
-                                    <h6 className="text-uppercase mb-0">Experience</h6>
+                                    <p className="mb-0">năm</p>
+                                    <h6 className="text-uppercase mb-0">Kinh nghiệm</h6>
                                 </div>
                             </div>
                         </div>
@@ -40,8 +40,8 @@ const About = () => {
                             <div className="d-flex align-items-center border-start border-5 border-primary px-3">
                                 <h1 className="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">50</h1>
                                 <div className="ps-4">
-                                    <p className="mb-0">Popular</p>
-                                    <h6 className="text-uppercase mb-0">Master Chefs</h6>
+                                    <p className="mb-0">Đầu bếp</p>
+                                    <h6 className="text-uppercase mb-0">Nổi tiếng</h6>
                                 </div>
                             </div>
                         </div>

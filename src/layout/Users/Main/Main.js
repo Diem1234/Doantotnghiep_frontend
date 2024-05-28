@@ -19,28 +19,28 @@ const Main = () => {
   let title = '';
   switch (pathname) {
     case '/':
-      title = 'Home';
+      title = 'Trang Chủ';
       break;
     case '/about':
       title = 'About Us';
       break;
     case '/service':
-    title = 'Service';
+    title = 'Dịch Vụ';
     break;
     case '/menu':
-      title = 'Food Menu';
+      title = 'Menu Món Ăn';
       break;
     case '/booking':
-      title = 'Booking';
+      title = 'Đặt hẹn trước';
       break;
     case '/team':
-        title = 'Our Team';
+        title = 'Danh mục';
         break;
     case '/testimoial':
         title = 'Testimonial'
         break;
     case '/contact':
-        title = 'Contact Us'
+        title = 'Liên Hệ'
         break;
     // Add more cases for other routes
     default:
@@ -53,7 +53,6 @@ const Main = () => {
       <main>
         <Outlet/>
       </main>
-      <Team/>
       <Footer />
       <Hero/>
     </div>

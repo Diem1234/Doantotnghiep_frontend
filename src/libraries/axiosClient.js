@@ -4,11 +4,24 @@ import axios from "axios";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_PUBLIC_BASE_URL,
-  headers: { Authorization: `Bearer ${localStorage.getItem('AUTHENTICATION_TOKEN')}`,
-    "Content-Type": "application/json" },
-    "Cache-Control": "no-cache",
+  headers: {
     Pragma: "no-cache"
+  }
 });
+
+// Thêm interceptor để thêm Authorization header
+axiosClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer  ${JSON.parse(token)}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // axiosClient.interceptors.request.use((config) => {
 //   const token = window.localStorage.getItem('AUTHENTICATION_TOKEN');

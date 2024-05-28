@@ -26,12 +26,7 @@ const Register = () => {
                 <CForm>
                   <h1 className='text-center text-white mb-3'>Register</h1>
                   <p className="text-medium-emphasis">Create your account</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilUser} />
-                    </CInputGroupText>
-                    <CFormInput placeholder="Name" autoComplete="name" />
-                  </CInputGroup>
+                
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
                     <CFormInput placeholder="Email" autoComplete="email" />
@@ -44,16 +39,6 @@ const Register = () => {
                       type="password"
                       placeholder="Password"
                       autoComplete="new-password"
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <FaQuestion/>
-                    </CInputGroupText>
-                    <CFormInput
-                      type="answer"
-                      placeholder="Answer"
-                      autoComplete="answer"
                     />
                   </CInputGroup>
                   <div className="d-grid">
