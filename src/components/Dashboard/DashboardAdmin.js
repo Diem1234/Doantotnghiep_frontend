@@ -6,7 +6,7 @@ const DashboardAdmin = () => {
   return (
     <div>
         <div className='container-fluid m-3 p-3 mt-5'>
-            <div className='row mt-5'>
+            <div className='row mt-2'>
                 <div className='col-md-2'>
                     <NavbarAdmin/>
                 </div>

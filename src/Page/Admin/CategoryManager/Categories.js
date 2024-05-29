@@ -17,11 +17,12 @@ const Categories = () => {
     try {
       const response = await axiosClient.post("api/v1/categories/create", { name, photo });
       if (response?.data.payload) {
-        toast.success(response.data.message);
+        
         console.log(response.data.message)
         setName();
         setPhoto();
-        setCategories([...categories, response.data.payload]); // Thêm danh mục mới vào danh sách
+        setCategories([...categories, response.data.payload]);
+        toast.success(response.data.message); // Thêm danh mục mới vào danh sách
       } 
     } catch (error) {
       console.log(error);

@@ -3,9 +3,18 @@ import React, { useEffect, useState } from 'react'
 
 import UpdateIngredient from './UpdateIngredient';
 import axiosClient from '../../../libraries/axiosClient';
+import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { queryAllByAltText } from '@testing-library/react';
 
 const Ingredients = () => {
-
+  const [uquantity,setUQuantity]=useState("");
+  const [uunit,setUUnit]=useState("");
+  const [usupplierId,setUSupplierId] = useState();
+  const [uname,setUName] = useState("")
+  const [visible,setVisible]= useState(false)
+  const [selected,setSelected] = useState(null)
+  const [updateName,setUpdateName] = useState("")
   const [ingredient, setIngredient] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [searchFirstName, setSearchFirstName] = useState('');
@@ -79,6 +88,31 @@ const Ingredients = () => {
     }
   };
 
+  const handleUpdate = async (e) =>{
+    e.preventDefault();
+    try {
+        const response = await axiosClient.patch(`api/v1/ingredient/${selected._id}`, {name: uname, quantity: uquantity, unit: uunit, supplierId: usupplierId});
+        if(response?.data.success){
+            setVisible(true); // Đóng modal sau khi cập nhật thành công
+            
+            setSelected(null);
+            setUName("");
+            setUQuantity("");
+            setUUnit("");
+            setUSupplierId("");
+            setIngredient(ingredient.map((ingredient) => {
+              if (ingredient._id === selected._id) {
+                return { ...ingredient, name: uname, quantity: uquantity, unit: uunit, supplierId: usupplierId }; // Cập nhật tên của danh mục tương ứng
+              }
+              return ingredient;
+            }));
+            toast.success(`Cập nhật thành công`);
+        }
+  
+    } catch (error) {
+        toast.error('Something went wrong')
+    }
+  };
     useEffect(() =>{
       getAllIngredients();
     },[]);
@@ -95,9 +129,7 @@ const Ingredients = () => {
       <div className="app-title">
         <ul className="app-breadcrumb breadcrumb side">
           <li className="breadcrumb-item active">
-            <a href="#">
-              <b>Danh sách khách hàng</b>
-            </a>
+            <Link to="/admin/ingredient"> Danh sách nguyên liệu</Link>
           </li>
         </ul>
         <div id="clock"></div>
@@ -124,14 +156,14 @@ const Ingredients = () => {
                   </NavLink>
                 </div> */}
                 <div className="col-sm-2">
-                  <a
-                    className="btn btn-delete btn-sm"
+                  <button
+                    className="btn btn-danger btn-sm"
                     type="button"
                     title="Xóa"
                     // onClick={handleDeleteSelected}
                   >
                     <i className="fas fa-trash-alt"></i> Xóa tất cả{" "}
-                  </a>
+                  </button>
                 </div>
                 <div className="col-sm-7">
                   {/* <form className="d-flex " role="search" onSubmit={handleSearch}>
@@ -143,7 +175,7 @@ const Ingredients = () => {
               </div>
               <table
                 className="table table-hover table-bordered js-copytextarea"
-                cellpadding="0"
+                cellPadding="0"
                 cellspacing="0"
                 border="0"
                 id="sampleTable"
@@ -195,17 +227,33 @@ const Ingredients = () => {
                         >
                           <i className="fas fa-trash-alt"></i>
                         </button>               
-                          <button
-                            type="button"
-                            className="btn btn-primary btn-sm trash"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </button>
-                          <UpdateIngredient/>
-                  
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm trash"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          data-bs-whatever="@mdo"
+                          onClick={()=>{
+                            setSelected(i);
+                            setUName(i.name);
+                            setUQuantity(i.quantity);
+                            setUUnit(i.unit);
+                            setUSupplierId(i.supplierId)
+                          }}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <UpdateIngredient 
+                          name={uname} 
+                          quantity={uquantity} 
+                          unit={uunit} 
+                          supplierId={usupplierId} 
+                          handleSubmit={handleUpdate}
+                          setName={setUName}
+                          setQuantity={setUQuantity}
+                          setUnit={setUUnit}
+                          setSupplierId={setUSupplierId}
+                          />
                       </td>
                     </tr>
                     ))}

@@ -17,6 +17,7 @@ import Categories from './Page/Admin/CategoryManager/Categories';
 import Register from './Page/Auth/Register';
 import Ingredients from './Page/Admin/IngredientManager/Ingredients';
 import Foods from './Page/Admin/FoodManager/Foods';
+import AddIngredient from './Page/Admin/IngredientManager/AddIngredient';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/dashboard/admin" element={<DashboardAdmin />} >
              <Route path="/dashboard/admin/category" element={<Categories />} />
              <Route path="/dashboard/admin/ingredient" element={<Ingredients />} />
+             <Route path="/dashboard/admin/add_ingredient" element={<AddIngredient />} />
              <Route path="/dashboard/admin/food" element={<Foods />} />
           </Route>
           <Route path="/dashboard/user" element={<DashboardUsers />} >

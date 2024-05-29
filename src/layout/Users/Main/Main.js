@@ -42,6 +42,12 @@ const Main = () => {
     case '/contact':
         title = 'Liên Hệ'
         break;
+    case '/dashboard/admin':
+        title = 'Quản trị viên'
+        break;
+    case '/dashboard/user':
+        title = 'Thông tin cá nhân'
+        break;
     // Add more cases for other routes
     default:
       title = 'Page';

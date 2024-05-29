@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const BreadcrumbNav = ({ title, breadcrumbItems }) => {
   return (
@@ -10,10 +11,10 @@ const BreadcrumbNav = ({ title, breadcrumbItems }) => {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb justify-content-center text-uppercase">
                 <li className="breadcrumb-item">
-                  <a href="#">Trang Chủ</a>
+                  <NavLink to="/">Trang Chủ</NavLink>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">TRang</a>
+                  <NavLink href="#">TRang</NavLink>
                 </li>
                 <li
                   className="breadcrumb-item text-white active"

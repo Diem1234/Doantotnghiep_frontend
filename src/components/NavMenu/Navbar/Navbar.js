@@ -56,7 +56,7 @@ const Navbar = () => {
                         </>
                         ) : (
                           <>
-                            <li class="nav-item dropdown">
+                            <li className="nav-item dropdown">
                               <NavLink
                                 className="nav-link dropdown-toggle"
                                 data-bs-toggle="dropdown"
@@ -65,7 +65,7 @@ const Navbar = () => {
                                 <i class="fa-regular fa-user"></i>
                                 {/* <FaCaretDown /> */}
                               </NavLink>
-                              <ul class="dropdown-menu">
+                              <ul className="dropdown-menu">
                                 <li>
                                   <NavLink
                                     to={`/dashboard/${

@@ -143,7 +143,7 @@ const Foods = () => {
               </div>
               <table
                 className="table table-hover table-bordered js-copytextarea"
-                cellpadding="0"
+                cellPadding="0"
                 cellspacing="0"
                 border="0"
                 id="sampleTable"

@@ -1,6 +1,6 @@
 import React from "react";
 
-const UpdateIngredient = () => {
+const UpdateIngredient = ({name,quantity,unit,supplierId,handleSubmit,setName,setQuantity,setUnit,setSupplierId}) => {
   return (
     <div>
       <div
@@ -16,13 +16,13 @@ const UpdateIngredient = () => {
               <div className="row">
                 <div className="form-group  col-md-12">
                   <span className="thong-tin-thanh-toan">
-                    <h5>Chỉnh sửa thông tin khách hàng cơ bản</h5>
+                    <h5>Thông tin nguyên liệu</h5>
                   </span>
                 </div>
               </div>
               <div className="row">
                 <div className="form-group col-md-6">
-                  <label className="control-label">ID khách hàng</label>
+                  <label className="control-label">Mã nguyên liệu</label>
                   <input
                     className="form-control"
                     type="text"
@@ -32,35 +32,38 @@ const UpdateIngredient = () => {
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label className="control-label">Họ và tên</label>
+                  <label className="control-label">Tên nguyên liệu</label>
                   <input
                     className="form-control"
                     type="text"
                     required
-                    value="Nguyễn Thị Chung"
+                    value={name}
+                    onChange={(e)=> setName(e.target.value)}
                   />
                 </div>
                 <div className="form-group  col-md-6">
-                  <label className="control-label">Số điện thoại</label>
+                  <label className="control-label">Số lượng</label>
                   <input
                     className="form-control"
                     type="number"
                     required
-                    value="09267312388"
+                    value={quantity}
+                    onChange={(e)=> setQuantity(e.target.value)}
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label className="control-label">Địa chỉ email</label>
+                  <label className="control-label">Nhà cung cấp</label>
                   <input
                     className="form-control"
                     type="text"
                     required
-                    value="chung@gmail.com"
+                    value={supplierId}
+                    onChange={(e)=> setSupplierId(e.target.value)}
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label className="control-label">Ngày sinh</label>
-                  <input className="form-control" type="date" value="13/09/2002" />
+                  <label className="control-label">Đơn vị</label>
+                  <input className="form-control" type="text" value={unit} onChange={(e)=> setUnit(e.target.value)}/>
                 </div>
               </div>
             </div>
@@ -72,7 +75,7 @@ const UpdateIngredient = () => {
               >
                 Hủy
               </button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" onClick={handleSubmit} data-bs-dismiss="modal"  className="btn btn-primary" >
                 Cập nhật
               </button>
             </div>
