@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../../../libraries/axiosClient';
+import { NavLink } from 'react-router-dom';
 
 const Menu = () => {
     const [food,setFood] =useState([])
@@ -65,7 +66,7 @@ const Menu = () => {
                         <div className="row g-4">
                         {food && food.map((f)=> (
                             <div className="col-lg-6" key={f._id}>
-                                <div className="d-flex align-items-center">
+                                <NavLink to={`/menu/foodDetail/${f._id}`} className="d-flex align-items-center">
                                     <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px'}}/>
                                     <div className="w-100 d-flex flex-column text-start ps-4">
                                         <h5 className="d-flex justify-content-between border-bottom pb-2">
@@ -74,7 +75,7 @@ const Menu = () => {
                                         </h5>
                                         <small className="fst-italic">{f.description}</small>
                                     </div>
-                                </div>
+                                </NavLink>
                             </div>  
                         ))}         
                         </div>

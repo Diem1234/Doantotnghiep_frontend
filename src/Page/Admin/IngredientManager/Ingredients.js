@@ -136,7 +136,7 @@ const Ingredients = () => {
       </div>
 
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-12 p-3">
           <div className="tile">
             <div className="tile-body">
               <div className="row element-button">
@@ -155,9 +155,9 @@ const Ingredients = () => {
                     </a>
                   </NavLink>
                 </div> */}
-                <div className="col-sm-2">
+                <div className="col-sm-3">
                   <button
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-danger"
                     type="button"
                     title="Xóa"
                     // onClick={handleDeleteSelected}
@@ -173,6 +173,7 @@ const Ingredients = () => {
                   </form> */}
                 </div>
               </div>
+                <div className='shadow p-3'>
               <table
                 className="table table-hover table-bordered js-copytextarea"
                 cellPadding="0"
@@ -260,6 +261,7 @@ const Ingredients = () => {
                   
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>

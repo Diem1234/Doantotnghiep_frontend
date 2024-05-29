@@ -1,3 +1,8 @@
+:root {
+    --swiper-theme-color: #fea116;
+
+}
+
 .buttonlg {
     border: none;
     color: #fff;
@@ -50,4 +55,7 @@
     
     background-color: rgba(255, 238, 182, 0.63);
 
+}
+.swiper-button {
+    color: var(--swiper-theme-color);
 }

@@ -164,13 +164,14 @@ const AddIngredient = () => {
                     onChange={(e) => setDateAdd(e.target.value)}
                   />
                 </div>
-
-                <button className="btn btn-info mt-3" type="submit">
-                  Lưu lại
-                </button>
-                <a className="btn btn-danger" onClick={()=>navigate('/main/productsmanager')}>
-                  Trở về
-                </a>
+                  <div className="form-group col-md-3">
+                  <button className="btn btn-info mt-3" type="submit">
+                    Lưu lại
+                  </button>
+                  <a className="btn btn-danger" onClick={()=>navigate('/main/productsmanager')}>
+                    Trở về
+                  </a>
+                </div>
               </form>
             </div>
           </div>

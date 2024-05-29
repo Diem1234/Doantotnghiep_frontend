@@ -18,6 +18,7 @@ import Register from './Page/Auth/Register';
 import Ingredients from './Page/Admin/IngredientManager/Ingredients';
 import Foods from './Page/Admin/FoodManager/Foods';
 import AddIngredient from './Page/Admin/IngredientManager/AddIngredient';
+import FoodDetail from './Page/Users/Food/FoodDetail';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/menu/foodDetail/:id" element={<FoodDetail />} />
           <Route path="/booking" element={<Reservation />} />
           <Route path="/team" element={<Team />} />
           <Route path="/testimonial" element={<Testimonial />} />
