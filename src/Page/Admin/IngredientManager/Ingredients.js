@@ -6,6 +6,7 @@ import axiosClient from '../../../libraries/axiosClient';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { queryAllByAltText } from '@testing-library/react';
+import ReactPaginate from 'react-paginate';
 
 const Ingredients = () => {
   const [uquantity,setUQuantity]=useState("");
@@ -19,6 +20,17 @@ const Ingredients = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchLastName, setSearchLastName] = useState('');
+  const itemsPerPage = 10; // Số mục trên mỗi trang
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  // Tính toán dữ liệu hiện tại cho trang
+  const offset = currentPage * itemsPerPage;
+  const currentIngredient = ingredient.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(ingredient.length / itemsPerPage);
 
   // const handleInputChange = (e) => {
   //   const inputValue = e.target.value;
@@ -198,7 +210,7 @@ const Ingredients = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {ingredient && ingredient.map((i) =>(
+                  {currentIngredient && currentIngredient.map((i) =>(
                     <tr key={i._id}>
                       <td width="10">
                         <input type="checkbox" checked={checkedItems[i._id] || false}
@@ -261,6 +273,29 @@ const Ingredients = () => {
                   
                 </tbody>
               </table>
+              <div>
+          <nav aria-label="Page navigation example ">
+            <ReactPaginate
+              previousLabel={'«'}
+              nextLabel={'»'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination'}
+              subContainerClassName={'pages pagination-sm'}
+              activeClassName={'active'}
+              pageLinkClassName={'page-link'}
+              previousLinkClassName={'page-link'}
+              nextLinkClassName={'page-link'}
+              pageClassName={'page-item'}
+              previousClassName={'page-item'}
+              nextClassName={'page-item'}
+            />
+          </nav>
+          </div>
               </div>
             </div>
           </div>
