@@ -19,6 +19,9 @@ import Ingredients from './Page/Admin/IngredientManager/Ingredients';
 import Foods from './Page/Admin/FoodManager/Foods';
 import AddIngredient from './Page/Admin/IngredientManager/AddIngredient';
 import FoodDetail from './Page/Users/Food/FoodDetail';
+import AddFood from './Page/Admin/FoodManager/AddFood';
+import OutPage from './Page/Out';
+
 
 
 function App() {
@@ -32,6 +35,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/out" element={<OutPage />} />
           <Route path="/menu/foodDetail/:id" element={<FoodDetail />} />
           <Route path="/booking" element={<Reservation />} />
           <Route path="/team" element={<Team />} />
@@ -42,6 +46,7 @@ function App() {
              <Route path="/dashboard/admin/ingredient" element={<Ingredients />} />
              <Route path="/dashboard/admin/add_ingredient" element={<AddIngredient />} />
              <Route path="/dashboard/admin/food" element={<Foods />} />
+             <Route path="/dashboard/admin/addfood" element={<AddFood />} />
           </Route>
           <Route path="/dashboard/user" element={<DashboardUsers />} >
 

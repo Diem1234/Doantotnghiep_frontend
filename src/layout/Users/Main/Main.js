@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Spinner from "../../../components/Users/Spinner/Spinner";
 import Service from "../../../components/Users/Service/Service";
 import About from "../../../components/Users/About/About";
@@ -15,53 +15,10 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import { useAuth } from "../../../context/auth";
 
 const Main = () => {
-  const location = useLocation();
-  // Extract relevant information from the router context
-  const { pathname } = location;
-  const [searchParams] = useSearchParams();
-  const foodId = searchParams.get("id");
-  console.log("path", pathname, `/menu/foodDetail/${foodId}`);
-  let title = "";
-  switch (pathname) {
-    case "/":
-      title = "Trang Chủ";
-      break;
-    case "/about":
-      title = "About Us";
-      break;
-    case "/service":
-      title = "Dịch Vụ";
-      break;
-    case "/menu":
-      title = "Menu Món Ăn";
-      break;
-    case "/booking":
-      title = "Đặt hẹn trước";
-      break;
-    case "/team":
-      title = "Danh mục";
-      break;
-    case "/testimoial":
-      title = "Testimonial";
-      break;
-    case "/contact":
-      title = "Liên Hệ";
-      break;
-    case "/dashboard/admin":
-      title = "Quản trị viên";
-      break;
-    case "/dashboard/user":
-      title = "Thông tin cá nhân";
-      break;
-    case `/menu/foodDetail/${foodId}`:
-      title = "Chi tiết món ăn";
-      break;
-    // Add more cases for other routes
-    default:
-      title = "Page";
-  }
+
   return (
     <div className="container-xxl bg-white p-0">
       {/* <Spinner /> */}

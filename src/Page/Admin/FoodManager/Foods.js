@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from "react";
 
 // import UpdateIngredient from './UpdateIngredient';
-import axiosClient from '../../../libraries/axiosClient';
-import ReactPaginate from 'react-paginate';
+import axiosClient from "../../../libraries/axiosClient";
+import ReactPaginate from "react-paginate";
+import { NavLink } from "react-router-dom";
 
 const Foods = () => {
-
   const [food, setFood] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
-  const [searchFirstName, setSearchFirstName] = useState('');
-  const [searchLastName, setSearchLastName] = useState('');
+  const [searchFirstName, setSearchFirstName] = useState("");
+  const [searchLastName, setSearchLastName] = useState("");
   const itemsPerPage = 10; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -22,7 +21,6 @@ const Foods = () => {
   const offset = currentPage * itemsPerPage;
   const currentFood = food.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(food.length / itemsPerPage);
-
 
   // const handleInputChange = (e) => {
   //   const inputValue = e.target.value;
@@ -38,30 +36,30 @@ const Foods = () => {
   //     console.log(response.payload);
   //     if (response?.payload)
   //     setCustomer(response?.payload); // Cập nhật state products với kết quả tìm kiếm
-    
+
   //   } catch (error) {
   //     console.log(error);
   //   }
   // };
 
-    //xử lý chọn vào checkbox lấy id
-    const handleItemCheck = (event, customerId) => {
-      const isChecked = event.target.checked;
-      setCheckedItems({
-        ...checkedItems,
-        [customerId]: isChecked,
-      });
-    };
-  
+  //xử lý chọn vào checkbox lấy id
+  const handleItemCheck = (event, customerId) => {
+    const isChecked = event.target.checked;
+    setCheckedItems({
+      ...checkedItems,
+      [customerId]: isChecked,
+    });
+  };
+
   //   // xử lý nhấn chọn tất cả checkbox
   //   const handleSelectAll = (event) => {
   //     const isChecked = event.target.checked;
   //     const newCheckedItems = {};
-    
+
   //     customers.forEach((product) => {
   //       newCheckedItems[product._id] = isChecked;
   //     });
-    
+
   //     setCheckedItems(newCheckedItems);
   //   };
   //   //click nút ẩn sẽ ẩn đi
@@ -69,7 +67,7 @@ const Foods = () => {
   //     const selectedIds = Object.keys(checkedItems).filter(
   //       (itemId) => checkedItems[itemId]
   //     );
-    
+
   //     try {
   //       //await axiosClient.post(`admin/products/${selectedIds.join(',')}/delete`);
   //       await axiosClient.post('admin/customers/delete', {selectedIds});
@@ -84,22 +82,21 @@ const Foods = () => {
 
   const getAllFoods = async () => {
     try {
-      const response = await axiosClient.get('/api/v1/food/');
+      const response = await axiosClient.get("/api/v1/food/");
       setFood(response.data.payload);
-      
     } catch (error) {
       console.error(error);
     }
   };
 
-    useEffect(() =>{
-      getAllFoods();
-    },[]);
-      // Hàm biến đổi định dạng ngày sinh
+  useEffect(() => {
+    getAllFoods();
+  }, []);
+  // Hàm biến đổi định dạng ngày sinh
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear().toString().slice(0);
     return `${day}/${month}/${year}`;
   };
@@ -120,7 +117,7 @@ const Foods = () => {
         <div className="col-md-12">
           <div className="tile">
             <div className="tile-body">
-              <div className="row element-button">
+              <div className="row element-button mb-3 p-2 shadow">
                 {/* <div className="col-sm-3">
                   <NavLink
                     to="/main/customermanagement/addcustomer"
@@ -146,7 +143,14 @@ const Foods = () => {
                     <i className="fas fa-trash-alt"></i> Xóa tất cả{" "}
                   </a>
                 </div>
-                <div className="col-sm-7">
+
+                <div className="col-sm-2">
+                  <NavLink
+                    to={"/dashboard/admin/addfood"}
+                    className="btn btn-primary"
+                  >
+                    +
+                  </NavLink>
                   {/* <form className="d-flex " role="search" onSubmit={handleSearch}>
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"   value={searchFirstName + " " + searchLastName}
     onChange={handleInputChange} />
@@ -154,44 +158,53 @@ const Foods = () => {
                   </form> */}
                 </div>
               </div>
-              <table
-                className="table table-hover table-bordered js-copytextarea"
-                cellPadding="0"
-                cellspacing="0"
-                border="0"
-                id="sampleTable"
-              >
-                <thead>
-                  <tr>
-                    <th width="10">
-                      <input type="checkbox" id="all" 
-                      // onChange={handleSelectAll}
-                      />
-                    </th>
-                    <th>Mã món ăn</th>
-                    <th width="150">Hình ảnh</th>
-                    {/* <th width="20">Ảnh đại diện</th> */}
-                    <th>Tên món ăn </th>
-                    <th>Giá</th>
-                    <th>Danh mục</th>
-                    <th width="100">Tính năng</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentFood && currentFood.map((i) =>(
-                    <tr key={i._id}>
-                      <td width="10">
-                        <input type="checkbox" checked={checkedItems[i._id] || false}
-  onChange={(event) => handleItemCheck(event, i._id)}/>
-                      </td>
-                      <td>{i._id}</td>
-                      <img
-                        src={i.photo}
-                        alt=""
-                        width="100px;"
-                        height={"100px"}
-                      />
-                      {/* <td>
+              <div className="shadow p-3">
+                <table
+                  className="table table-hover table-bordered js-copytextarea"
+                  cellPadding="0"
+                  cellspacing="0"
+                  border="0"
+                  id="sampleTable"
+                >
+                  <thead>
+                    <tr>
+                      <th width="10">
+                        <input
+                          type="checkbox"
+                          id="all"
+                          // onChange={handleSelectAll}
+                        />
+                      </th>
+                      <th>Mã món ăn</th>
+                      <th width="150">Hình ảnh</th>
+                      {/* <th width="20">Ảnh đại diện</th> */}
+                      <th>Tên món ăn </th>
+                      <th>Giá</th>
+                      <th>Danh mục</th>
+                      <th width="100">Tính năng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentFood &&
+                      currentFood.map((i) => (
+                        <tr key={i._id}>
+                          <td width="10">
+                            <input
+                              type="checkbox"
+                              checked={checkedItems[i._id] || false}
+                              onChange={(event) =>
+                                handleItemCheck(event, i._id)
+                              }
+                            />
+                          </td>
+                          <td>{i._id}</td>
+                          <img
+                            src={i.photo}
+                            alt=""
+                            width="100px;"
+                            height={"100px"}
+                          />
+                          {/* <td>
                         <img
                           className="img-card-person"
                           src={`http://localhost:3333/${c.avatarUrl}`}
@@ -200,65 +213,64 @@ const Foods = () => {
                           height={"100px"}
                         />
                       </td> */}
-                      <td>{i.name}</td>
-                      <td>{i.price}</td>
-                      <td>{i.categoryId}</td>
-                    
-                      <td className="table-td-center">
-                        <button
-                          className="btn btn-primary btn-sm trash"
-                          type="button"
-                          title="Xóa"
-                          onclick="myFunction(this)"
-                        >
-                          <i className="fas fa-trash-alt"></i>
-                        </button>               
-                          <button
-                            type="button"
-                            className="btn btn-primary btn-sm trash"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </button>
-                          {/* <UpdateIngredient/> */}
-                  
-                      </td>
-                    </tr>
-                    ))}
-                  
-                </tbody>
-              </table>
+                          <td>{i.name}</td>
+                          <td>{i.price}</td>
+                          <td>{i.categoryId}</td>
+
+                          <td className="table-td-center">
+                            <button
+                              className="btn btn-primary btn-sm trash"
+                              type="button"
+                              title="Xóa"
+                              onclick="myFunction(this)"
+                            >
+                              <i className="fas fa-trash-alt"></i>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-primary btn-sm trash"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              data-bs-whatever="@mdo"
+                            >
+                              <i className="fas fa-edit"></i>
+                            </button>
+                            {/* <UpdateIngredient/> */}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
               <div>
-          <nav aria-label="Page navigation example ">
-            <ReactPaginate
-              previousLabel={'«'}
-              nextLabel={'»'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={'pagination'}
-              subContainerClassName={'pages pagination-sm'}
-              activeClassName={'active'}
-              pageLinkClassName={'page-link'}
-              previousLinkClassName={'page-link'}
-              nextLinkClassName={'page-link'}
-              pageClassName={'page-item'}
-              previousClassName={'page-item'}
-              nextClassName={'page-item'}
-            />
-          </nav>
-          </div>
+                <nav aria-label="Page navigation example ">
+                  <ReactPaginate
+                    previousLabel={"«"}
+                    nextLabel={"»"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination-sm"}
+                    activeClassName={"active"}
+                    pageLinkClassName={"page-link"}
+                    previousLinkClassName={"page-link"}
+                    nextLinkClassName={"page-link"}
+                    pageClassName={"page-item"}
+                    previousClassName={"page-item"}
+                    nextClassName={"page-item"}
+                  />
+                </nav>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Foods
+export default Foods;
