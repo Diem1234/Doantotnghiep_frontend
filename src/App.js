@@ -21,6 +21,7 @@ import AddIngredient from './Page/Admin/IngredientManager/AddIngredient';
 import FoodDetail from './Page/Users/Food/FoodDetail';
 import AddFood from './Page/Admin/FoodManager/AddFood';
 import OutPage from './Page/Out';
+import Members from './Page/Admin/MemberManager/Members';
 
 
 
@@ -47,6 +48,7 @@ function App() {
              <Route path="/dashboard/admin/add_ingredient" element={<AddIngredient />} />
              <Route path="/dashboard/admin/food" element={<Foods />} />
              <Route path="/dashboard/admin/addfood" element={<AddFood />} />
+             <Route path="/dashboard/admin/member" element={<Members />} />
           </Route>
           <Route path="/dashboard/user" element={<DashboardUsers />} >
 

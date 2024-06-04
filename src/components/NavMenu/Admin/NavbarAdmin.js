@@ -7,6 +7,9 @@ const NavbarAdmin = () => {
      <div className='text-center'>
             <div className="list-group ">
                 <h6>Tài khoản cá nhân</h6>
+                <NavLink to="/dashboard/admin/member" className="list-group-item list-group-item-action">
+                    Quản lý thành viên
+                </NavLink>
                 <NavLink to="/dashboard/admin/category" className="list-group-item list-group-item-action">
                     Quản lý danh mục
                 </NavLink>
