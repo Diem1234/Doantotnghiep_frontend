@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../../libraries/axiosClient";
 import ReactPaginate from "react-paginate";
 import { NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Foods = () => {
   const [food, setFood] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
-  const [searchFirstName, setSearchFirstName] = useState("");
-  const [searchLastName, setSearchLastName] = useState("");
   const itemsPerPage = 10; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
@@ -28,19 +28,20 @@ const Foods = () => {
   //   setSearchFirstName(firstName || "");
   //   setSearchLastName(lastName.join(" ") || "");
   // };
-  //    //search
-  // const handleSearch = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axiosClient.get(`questions/customerSearch?firstName=${searchFirstName}&lastName=${searchLastName}`);
-  //     console.log(response.payload);
-  //     if (response?.payload)
-  //     setCustomer(response?.payload); // Cập nhật state products với kết quả tìm kiếm
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+     //search
+      //search
+      const handleSearch = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axiosClient.get(`api/v1/food/foods/search?name=${searchTerm}`);
+          
+          if (response)
+            setFood(response?.data.payload); // Cập nhật state products với kết quả tìm kiếm
+        
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
   //xử lý chọn vào checkbox lấy id
   const handleItemCheck = (event, customerId) => {
@@ -51,34 +52,34 @@ const Foods = () => {
     });
   };
 
-  //   // xử lý nhấn chọn tất cả checkbox
-  //   const handleSelectAll = (event) => {
-  //     const isChecked = event.target.checked;
-  //     const newCheckedItems = {};
+    // xử lý nhấn chọn tất cả checkbox
+    const handleSelectAll = (event) => {
+      const isChecked = event.target.checked;
+      const newCheckedItems = {};
 
-  //     customers.forEach((product) => {
-  //       newCheckedItems[product._id] = isChecked;
-  //     });
+      food.forEach((food) => {
+        newCheckedItems[food._id] = isChecked;
+      });
 
-  //     setCheckedItems(newCheckedItems);
-  //   };
-  //   //click nút ẩn sẽ ẩn đi
-  //   const handleDeleteSelected = async () => {
-  //     const selectedIds = Object.keys(checkedItems).filter(
-  //       (itemId) => checkedItems[itemId]
-  //     );
+      setCheckedItems(newCheckedItems);
+    };
+    //click nút ẩn sẽ ẩn đi
+    const handleDeleteSelected = async () => {
+      const selectedIds = Object.keys(checkedItems).filter(
+        (itemId) => checkedItems[itemId]
+      );
 
-  //     try {
-  //       //await axiosClient.post(`admin/products/${selectedIds.join(',')}/delete`);
-  //       await axiosClient.post('admin/customers/delete', {selectedIds});
-  //       setCheckedItems({});
-  //       setCustomer(customers.filter((customer) => !selectedIds.includes(customer._id)));
-  //       toast.success("Đã xóa sản phẩm");
-  //     } catch (error) {
-  //       console.error(error);
-  //       toast.error("Có lỗi xảy ra khi xóa sản phẩm");
-  //     }
-  //   };
+      try {
+        //await axiosClient.post(`admin/products/${selectedIds.join(',')}/delete`);
+        await axiosClient.post('api/v1/food/delete', {selectedIds});
+        setCheckedItems({});
+        setFood(food.filter((food) => !selectedIds.includes(food._id)));
+        toast.success("Đã xóa sản phẩm");
+      } catch (error) {
+        console.error(error);
+        toast.error("Có lỗi xảy ra khi xóa sản phẩm");
+      }
+    };
 
   const getAllFoods = async () => {
     try {
@@ -88,7 +89,23 @@ const Foods = () => {
       console.error(error);
     }
   };
-
+   //Delete category
+   const handleDelete = async (pId) =>{
+    try {
+        const response = await axiosClient.delete(`api/v1/food/${pId}`);
+        if(response){
+            toast.success(`category is deleted`);
+            setFood(food.filter((f) => f._id !== pId)); 
+            // Loại bỏ danh mục đã được xóa khỏi danh sách
+          //   setProductsList(productsList.filter((product) => product._id !== pId)); 
+          // setReload(prev => !prev); // Tải lại danh sách sản phẩm từ server
+            
+        }
+        
+    } catch (error) {
+        toast.error('Something went wrong')
+    }
+  }
   useEffect(() => {
     getAllFoods();
   }, []);
@@ -106,7 +123,7 @@ const Foods = () => {
         <ul className="app-breadcrumb breadcrumb side">
           <li className="breadcrumb-item active">
             <a href="#">
-              <b>Danh sách khách hàng</b>
+              <b>Danh sách món ăn</b>
             </a>
           </li>
         </ul>
@@ -117,7 +134,7 @@ const Foods = () => {
         <div className="col-md-12">
           <div className="tile">
             <div className="tile-body">
-              <div className="row element-button mb-3 p-2 shadow">
+              <div className="row element-button mb-3 p-3 m-1 shadow">
                 {/* <div className="col-sm-3">
                   <NavLink
                     to="/main/customermanagement/addcustomer"
@@ -133,29 +150,32 @@ const Foods = () => {
                     </a>
                   </NavLink>
                 </div> */}
-                <div className="col-sm-2">
-                  <a
-                    className="btn btn-delete btn-sm"
-                    type="button"
-                    title="Xóa"
-                    // onClick={handleDeleteSelected}
-                  >
-                    <i className="fas fa-trash-alt"></i> Xóa tất cả{" "}
-                  </a>
-                </div>
-
-                <div className="col-sm-2">
+                <div className="col-sm-1">
                   <NavLink
                     to={"/dashboard/admin/addfood"}
                     className="btn btn-primary"
                   >
                     +
                   </NavLink>
-                  {/* <form className="d-flex " role="search" onSubmit={handleSearch}>
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"   value={searchFirstName + " " + searchLastName}
-    onChange={handleInputChange} />
-                    <button className="btn btn-info" type="submit">Search</button>
-                  </form> */}
+                </div>
+                <div className="col-sm-2">
+                  <a
+                    className="btn btn-danger"
+                    type="button"
+                    title="Xóa"
+                    onClick={handleDeleteSelected}
+                  >
+                    <i className="fas fa-trash-alt"></i> Ẩn
+                  </a>
+                </div>
+
+                
+                <div className="col-sm-3">
+                  <form className="d-flex " role="search" onSubmit={handleSearch}>
+                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)} />
+                    <button className="btn btn-warming" type="submit">Search</button>
+                  </form>
                 </div>
               </div>
               <div className="shadow p-3">
@@ -168,13 +188,9 @@ const Foods = () => {
                 >
                   <thead>
                     <tr>
-                      <th width="10">
-                        <input
-                          type="checkbox"
-                          id="all"
-                          // onChange={handleSelectAll}
-                        />
-                      </th>
+                    <th width="10">
+                      <input type="checkbox" id="all" onChange={handleSelectAll}  />
+                    </th>
                       <th>Mã món ăn</th>
                       <th width="150">Hình ảnh</th>
                       {/* <th width="20">Ảnh đại diện</th> */}
@@ -222,7 +238,7 @@ const Foods = () => {
                               className="btn btn-primary btn-sm trash"
                               type="button"
                               title="Xóa"
-                              onclick="myFunction(this)"
+                              onClick={() => { handleDelete(i._id)}}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </button>
@@ -241,8 +257,7 @@ const Foods = () => {
                       ))}
                   </tbody>
                 </table>
-              </div>
-              <div>
+                <div>
                 <nav aria-label="Page navigation example ">
                   <ReactPaginate
                     previousLabel={"«"}
@@ -265,6 +280,8 @@ const Foods = () => {
                   />
                 </nav>
               </div>
+              </div>
+              
             </div>
           </div>
         </div>
