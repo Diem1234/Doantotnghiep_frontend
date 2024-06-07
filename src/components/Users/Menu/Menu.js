@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../../../libraries/axiosClient';
 import { NavLink } from 'react-router-dom';
+import { useTitle } from '../../../hooks/useTitle';
 
 const Menu = () => {
     const [food,setFood] =useState([])
+    
+    const { setTitle } = useTitle();
+    useEffect(() => {
+        setTitle("Danh sách món ăn");
+    }, []);
 
     const getAllFoods = async () => {
         try {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -14,8 +14,32 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { FaQuestion } from "react-icons/fa";
+import axiosClient from '../../libraries/axiosClient';
 
 const Register = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleRegister = async () => {
+
+    try {
+      const response = await axiosClient.post('api/v1/auth/register', {
+        email,
+        password
+      })
+      console.log(response.data)
+      // Handle successful registration, e.g., redirect to login page
+      alert('Registration successful! You can now log in.')
+      // Redirect the user to the login page
+      window.location.href = '/login'
+  
+
+    } catch (error) {
+      console.error(error)
+      // Handle registration error, e.g., display an error message
+    }
+  }
+
   return (
     <div className="bg-forgot min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -29,7 +53,8 @@ const Register = () => {
                 
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" autoComplete="email" />
+                    <CFormInput placeholder="Email" autoComplete="email" value={email}
+                      onChange={(e) => setEmail(e.target.value)}/>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
@@ -38,11 +63,12 @@ const Register = () => {
                     <CFormInput
                       type="password"
                       placeholder="Password"
-                      autoComplete="new-password"
+                      autoComplete="new-password"value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="primary">Create Account</CButton>
+                    <CButton color="primary" onClick={handleRegister}>Create Account</CButton>
                   </div>
                 </CForm>
               </CCardBody>

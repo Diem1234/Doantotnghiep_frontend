@@ -8,7 +8,7 @@ const DashboardAdmin = () => {
     const [auth, setAuth] = useAuth();
     useEffect(() => {
         if (!auth.user) { 
-          window.location.href = '/out';
+          window.location.href = '/login';
         }
     }, [auth, setAuth]);
   return (

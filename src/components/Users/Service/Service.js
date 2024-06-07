@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useTitle } from '../../../hooks/useTitle';
 
 const Service = () => {
+    
+  const { setTitle } = useTitle();
+  useEffect(() => {
+    setTitle("Dịch vụ");
+  }, []);
   return (
     <div className="container-xxl py-5">
         <div className="container">

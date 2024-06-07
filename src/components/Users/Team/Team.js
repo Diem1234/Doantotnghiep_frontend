@@ -11,8 +11,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import "../../../styles/buttonlogin.css";
+import { useTitle } from '../../../hooks/useTitle';
 const Team = () => {
     const [categories,setCategories]= useState([]);
+    
+    const { setTitle } = useTitle();
+    useEffect(() => {
+      setTitle("Danh mục");
+    }, []);
+
     const swiperElRef = useRef(null);
     const getAllCategories = async () => {
         try {

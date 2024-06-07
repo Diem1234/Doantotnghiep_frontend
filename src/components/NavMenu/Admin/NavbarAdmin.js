@@ -32,7 +32,7 @@ const NavbarAdmin = () => {
                         </li>
                     </ul>
           
-                <NavLink to="/dashboard/admin/users" className="list-group-item list-group-item-action">
+                <NavLink to="/dashboard/admin/profile" className="list-group-item list-group-item-action">
                     Profile
                 </NavLink>
             </div>
