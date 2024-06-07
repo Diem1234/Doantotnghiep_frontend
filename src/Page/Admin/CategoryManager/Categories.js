@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import axiosClient from "../../../libraries/axiosClient";
 import UpdateCategories from "./UpdateCategories";
 import ReactPaginate from "react-paginate";
+import { useTitle } from "../../../hooks/useTitle";
 
 const Categories = () => {
   const [categories,setCategories]= useState([]);
@@ -14,6 +15,11 @@ const Categories = () => {
   const [updateName,setUpdateName] = useState("")
   const itemsPerPage = 5; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle("Quản lý danh mục");
+  }, []);
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);

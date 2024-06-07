@@ -5,6 +5,7 @@ import axiosClient from "../../../libraries/axiosClient";
 import ReactPaginate from "react-paginate";
 import { NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useTitle } from "../../../hooks/useTitle";
 
 const Foods = () => {
   const [food, setFood] = useState([]);
@@ -12,6 +13,11 @@ const Foods = () => {
   const itemsPerPage = 10; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle("Quản lý món ăn");
+  }, []);
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
@@ -22,13 +28,6 @@ const Foods = () => {
   const currentFood = food.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(food.length / itemsPerPage);
 
-  // const handleInputChange = (e) => {
-  //   const inputValue = e.target.value;
-  //   const [firstName,...lastName] = inputValue.split(" ");
-  //   setSearchFirstName(firstName || "");
-  //   setSearchLastName(lastName.join(" ") || "");
-  // };
-     //search
       //search
       const handleSearch = async (e) => {
         e.preventDefault();

@@ -24,6 +24,7 @@ import OutPage from './Page/Out';
 import Members from './Page/Admin/MemberManager/Members';
 import MenuFood from './Page/Users/Food/MenuFood';
 import ProfileManager from './Page/Profile/ProfieManager';
+import AddMembers from './Page/Profile/AddMembers';
 
 
 
@@ -52,9 +53,11 @@ function App() {
              <Route path="/dashboard/admin/addfood" element={<AddFood />} />
              <Route path="/dashboard/admin/member" element={<Members />} />
              <Route path="/dashboard/admin/profile" element={<ProfileManager />} />
+             <Route path="/dashboard/admin/addmember" element={<AddMembers />} />
           </Route>
           <Route path="/dashboard/user" element={<DashboardUsers />} >
             <Route path="/dashboard/user/profile" element={<ProfileManager />} />
+            <Route path="/dashboard/user/addmember" element={<AddMembers />} />
           </Route>
         </Route>
 

@@ -3,7 +3,6 @@ import NavbarAdmin from '../NavMenu/Admin/NavbarAdmin'
 import { Outlet } from 'react-router-dom'
 import { useAuth } from '../../context/auth';
 
-
 const DashboardAdmin = () => {
     const [auth, setAuth] = useAuth();
     useEffect(() => {

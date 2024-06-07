@@ -7,6 +7,7 @@ import { Link, NavLink } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { queryAllByAltText } from '@testing-library/react';
 import ReactPaginate from 'react-paginate';
+import { useTitle } from '../../../hooks/useTitle';
 
 const Ingredients = () => {
   const [uquantity,setUQuantity]=useState("");
@@ -21,6 +22,12 @@ const Ingredients = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const itemsPerPage = 10; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle("Quản lý nguyên liệu");
+  }, []);
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);

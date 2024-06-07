@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "./../../libraries/axiosClient";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/auth";
-
+import { NavLink } from "react-router-dom";
+import { useTitle } from "../../hooks/useTitle";
 const ProfileManager = () => {
   //context
   const [auth, setAuth] = useAuth();
@@ -15,6 +16,15 @@ const ProfileManager = () => {
   const [address, setAddress] = useState("");
   //const [question,setQuestion]= useState("")
 
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle("Thông tin cá nhân");
+  }, []);
+ //get user data
+ useEffect(() => {
+  console.log(auth.user)
+}, []);
   //get user data
   useEffect(() => {
     const { email } = auth?.user;
@@ -50,9 +60,11 @@ const ProfileManager = () => {
   return (
     <main className="app-content">
       <div className="row">
+        
         <div className="col-md-12">
           <div className="tile">
             <h3 className="tile-title">Thông tin cá nhân</h3>
+            
             <div className="tile-body row">
               <form className="col-md-4" onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -79,7 +91,15 @@ const ProfileManager = () => {
                 </button>
               </form>
 
-              <div className="col-md-6 shadow ms-5 border border-info">
+              <div className="col-md-7 shadow border border-info p-2">
+                <div className="col-sm-1 float-end mb-2">
+                  <NavLink
+                    to={`/dashboard/${auth?.user.role == 'admin' ? 'admin' : 'user'}/addmember`}
+                    className="btn btn-primary"
+                  >
+                    +
+                  </NavLink>
+                </div>
               <table
                 className="table table-hover table-bordered js-copytextarea"
                 cellPadding="0"
@@ -89,13 +109,13 @@ const ProfileManager = () => {
               >
                 <thead>
                   <tr>
-                  <th>ID</th>
                       <th>Tên</th>
                       <th>Giới tính</th>
                       <th>Tình trạng</th>
                       <th>Tuổi</th>
-                      <th>Trạng thái</th>
+                      <th>Xu hướng</th>
                       <th>Số điện thoại</th>
+                      <th>Tính năng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -107,44 +127,14 @@ const ProfileManager = () => {
                             <td>{member.age}</td>
                             <td>{member.trend}</td>
                             <td>{member.phone}</td>
-                    
-                      <td className="table-td-center">
-                        <button
-                          className="btn btn-primary btn-sm trash"
-                          type="button"
-                          title="Xóa"
-                        //   onClick={() => { handleDelete(i._id)}}
-                        >
-                          <i className="fas fa-trash-alt"></i>
-                        </button>               
-                        <button
-                          type="button"
-                          className="btn btn-primary btn-sm trash"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          data-bs-whatever="@mdo"
-                        //   onClick={()=>{
-                        //     setSelected(i);
-                        //     setUName(i.name);
-                        //     setUQuantity(i.quantity);
-                        //     setUUnit(i.unit);
-                        //     setUSupplierId(i.supplierId)
-                        //   }}
-                        >
-                          <i className="fas fa-edit"></i>
-                        </button>
-                        {/* <UpdateIngredient 
-                          name={uname} 
-                          quantity={uquantity} 
-                          unit={uunit} 
-                          supplierId={usupplierId} 
-                          handleSubmit={handleUpdate}
-                          setName={setUName}
-                          setQuantity={setUQuantity}
-                          setUnit={setUUnit}
-                          setSupplierId={setUSupplierId}
-                          /> */}
-                      </td>
+                            <td><button
+                              className="btn btn-primary btn-sm trash"
+                              type="button"
+                              title="Xóa"
+                             
+                            >
+                              <i className="fas fa-edit"></i>
+                            </button></td>
                     </tr>
                     ))}
                   
@@ -153,35 +143,6 @@ const ProfileManager = () => {
                 {/* <img src="https://static.vecteezy.com/system/resources/previews/018/989/610/original/a-man-finishes-work-on-deadline-flat-cartoon-illustration-of-enterprising-man-working-on-laptop-vector.jpg" width="100%" className="mt-5"/> */}
               </div>
 
-              {/* <div className="form-group  col-md-3">
-                <label for="exampleSelect1" className="control-label">
-                  Chức vụ
-                </label>
-                <select className="form-control" id="exampleSelect1">
-                  <option>-- Chọn chức vụ --</option>
-                  <option>Bán hàng</option>
-                  <option>Tư vấn</option>
-                  <option>Dịch vụ</option>
-                  <option>Thu Ngân</option>
-                  <option>Quản kho</option>
-                  <option>Bảo trì</option>
-                  <option>Kiểm hàng</option>
-                  <option>Bảo vệ</option>
-                  <option>Tạp vụ</option>
-                </select>
-              </div>
-
-              <div className="form-group col-md-12">
-                <label className="control-label">Ảnh 3x4 nhân viên</label>
-                <div id="myfileupload">
-                  <input
-                    type="file"
-                    id="uploadfile"
-                    name="ImageUpload"
-                    onchange="readURL(this);"
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

@@ -5,13 +5,18 @@ import axiosClient from "../../../libraries/axiosClient";
 import ReactPaginate from "react-paginate";
 import { NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { useTitle } from "../../../hooks/useTitle";
 const Members = () => {
   const [members, setMembers] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const itemsPerPage = 10; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle("Quản lý thành viên");
+  }, []);
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
