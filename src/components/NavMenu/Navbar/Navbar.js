@@ -29,8 +29,6 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarCollapse">
                 <div className="navbar-nav ms-auto py-0 pe-4">
                     <Link to="/" className="nav-item nav-link">Trang Chủ</Link>
-                    <Link to="/about" className="nav-item nav-link">Về chúng tôi</Link>
-                    <Link to="/service" className="nav-item nav-link">Dịch Vụ</Link>
                     <Link to="/menu" className="nav-item nav-link">Menu</Link>
                     <div className="nav-item dropdown">
                         <Link to="/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trang</Link>
@@ -62,7 +60,7 @@ const Navbar = () => {
                                 data-bs-toggle="dropdown"
                               >
                                 {auth?.user?.name}
-                                <i class="fa-regular fa-user"></i>
+                                <i className="fa-regular fa-user"></i>
                                 {/* <FaCaretDown /> */}
                               </NavLink>
                               <ul className="dropdown-menu">

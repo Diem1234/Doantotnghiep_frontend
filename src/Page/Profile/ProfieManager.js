@@ -21,10 +21,7 @@ const ProfileManager = () => {
   useEffect(() => {
     setTitle("Thông tin cá nhân");
   }, []);
- //get user data
- useEffect(() => {
-  console.log(auth.user)
-}, []);
+
   //get user data
   useEffect(() => {
     const { email } = auth?.user;
@@ -45,11 +42,12 @@ const ProfileManager = () => {
         email,
         password,
       });
-
+      console.log()
       if (response?.error) {
         toast.error(response?.error);
       } else {
         setAuth({ ...auth, user: response?.updatedUser });
+        console.log('auth',auth.user.role)
         toast.success("Profile updated successfully");
       }
     } catch (error) {
@@ -66,7 +64,7 @@ const ProfileManager = () => {
             <h3 className="tile-title">Thông tin cá nhân</h3>
             
             <div className="tile-body row">
-              <form className="col-md-4" onSubmit={handleSubmit}>
+              <form className="col-md-4" >
                 <div className="mb-3">
                   <input
                     type="text"
@@ -86,7 +84,7 @@ const ProfileManager = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary btn-submit">
+                <button type="button" className="btn btn-primary btn-submit" onClick={handleSubmit}>
                   Submit
                 </button>
               </form>
@@ -94,7 +92,7 @@ const ProfileManager = () => {
               <div className="col-md-7 shadow border border-info p-2">
                 <div className="col-sm-1 float-end mb-2">
                   <NavLink
-                    to={`/dashboard/${auth?.user.role == 'admin' ? 'admin' : 'user'}/addmember`}
+                    to={`/dashboard/${auth?.user?.role === 'admin' ? 'admin' : 'user'}/addmember`}
                     className="btn btn-primary"
                   >
                     +

@@ -58,7 +58,7 @@ const Team = () => {
               onSlideChange={() => console.log('slide change')}
             >
               {categories && categories.map((c)=> ( 
-              <SwiperSlide className="col-lg-4 col-md-5 wow fadeInUp swiper-button">
+              <SwiperSlide key={c._id} className="col-lg-4 col-md-5 wow fadeInUp swiper-button">
               <div className="team-item text-center rounded overflow-hidden">
                         <div className="rounded overflow-hidden m-4">
                             <img className="rounded" width={'200px'} height={'200px'} src={c.photo} alt=""/>
