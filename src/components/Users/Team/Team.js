@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import "../../../styles/buttonlogin.css";
 import { useTitle } from '../../../hooks/useTitle';
+import { NavLink } from 'react-router-dom';
 const Team = () => {
     const [categories,setCategories]= useState([]);
     
@@ -59,12 +60,12 @@ const Team = () => {
             >
               {categories && categories.map((c)=> ( 
               <SwiperSlide key={c._id} className="col-lg-4 col-md-5 wow fadeInUp swiper-button">
-              <div className="team-item text-center rounded overflow-hidden">
+              <NavLink to={`/menu/${c._id}`} className="team-item text-center rounded overflow-hidden">
                         <div className="rounded overflow-hidden m-4">
                             <img className="rounded" width={'200px'} height={'200px'} src={c.photo} alt=""/>
                         </div>
                         <h5 className="mb-0">{c.name}</h5>
-                    </div>
+                    </NavLink>
               </SwiperSlide>
               ))}
             </Swiper>

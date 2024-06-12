@@ -1,6 +1,6 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, useCallback } from "react";
 import axiosClient from "../../../libraries/axiosClient";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTitle } from "../../../hooks/useTitle";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../../../components/Routes/Prices";
@@ -32,14 +32,17 @@ const FoodItem = memo(({ food }) => {
 });
 
 const MenuFood = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState({
     checked: [],
     radio: [],
   });
+
   const [food, setFood] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [noFoodsFound, setNoFoodsFound] = useState(false);
 
   const { setTitle } = useTitle();
   useEffect(() => {
@@ -49,7 +52,9 @@ const MenuFood = () => {
   useEffect(() => {
     getAllCategories();
   }, []);
+  const { categoryId } = useParams()
 
+    
   const getAllCategories = async () => {
     try {
       const response = await axiosClient.get("api/v1/categories");
@@ -79,23 +84,60 @@ const MenuFood = () => {
     }));
   };
 
-  useEffect(() => {
-    const fetchFood = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axiosClient.post("api/v1/food/food-filters", {
-          checked: filters.checked,
-          radio: filters.radio,
-        });
-        setFood(data.payload);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
+  // Memoize hàm fetchFoodsByCategory
+  const fetchFoodsByCategory = useCallback(async () => {
+    try {
+      const response = await axiosClient.get(`api/v1/food/foods/category/${categoryId}`);
+      setFood(response.data.payload);
+      setNoFoodsFound(response.data.payload.length === 0);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [categoryId]);
 
-    fetchFood();
+  // Memoize hàm fetchFood
+  const fetchFood = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { data } = await axiosClient.post('api/v1/food/food-filters', {
+        checked: filters.checked,
+        radio: filters.radio,
+      });
+      setFood(data.payload);
+      setNoFoodsFound(data.payload.length === 0);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   }, [filters]);
+
+  // Cập nhật URL khi thay đổi bộ lọc
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    filters.checked.forEach((f) => searchParams.append('checked', f));
+    searchParams.set('radio', filters.radio);
+    navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+  }, [filters, location, navigate]);
+
+  // Lấy danh sách món ăn khi thay đổi categoryId hoặc filters
+  useEffect(() => {
+    fetchFoodsByCategory();
+  }, [categoryId, fetchFoodsByCategory]);
+
+  useEffect(() => {
+    fetchFood();
+  }, [filters, fetchFood]);
+
+  // Khôi phục bộ lọc từ URL
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const checkedParams = searchParams.getAll('checked');
+    const radioParam = searchParams.get('radio');
+    setFilters({ checked: checkedParams, radio: radioParam || '' });
+  }, [location.search]);
+
+
+  
 
   return (
     <div className="container-xxl py-5">
@@ -134,9 +176,18 @@ const MenuFood = () => {
           </div>
           <div className="col-md-9">
             <div className="d-flex flex-wrap">
-              {food.map((p) => (
-                <FoodItem key={p._id} food={p} />
-              ))}
+            {noFoodsFound ? (
+              <div className="text-center my-5">
+                <h3>Không tìm thấy món ăn nào</h3>
+                <p>Hãy thử thay đổi bộ lọc để tìm kiếm</p>
+              </div>
+            ) : (
+              <div className="d-flex flex-wrap">
+                {food.map((p) => (
+                  <FoodItem key={p._id} food={p} />
+                ))}
+              </div>
+            )}
             </div>
             <div className="m-2 p-3">
               {food && food.length < 0 && (

@@ -37,6 +37,7 @@ function App() {
         <Route path="/" element={<Main />} >
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<MenuFood />} />
+          <Route path="/menu/:categoryId" element={<MenuFood />} />
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/out" element={<OutPage />} />
