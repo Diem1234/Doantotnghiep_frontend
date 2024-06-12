@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-// import UpdateIngredient from './UpdateIngredient';
+import ShowFilterMember from "./ShowFilterMember";
 import axiosClient from "../../../libraries/axiosClient";
 import ReactPaginate from "react-paginate";
 import { NavLink } from "react-router-dom";
@@ -13,7 +13,13 @@ const Members = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const { setTitle } = useTitle();
+  
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalCountHighBloodPressure, setTotalCountHighBloodPressure] = useState(0);
+const [totalCountDiabetes, setTotalCountDiabetes] = useState(0);
+const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
 
+  const [status, setStatus] = useState();
   useEffect(() => {
     setTitle("Quản lý thành viên");
   }, []);
@@ -27,13 +33,7 @@ const Members = () => {
   const currentMembers = members.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(members.length / itemsPerPage);
 
-  // const handleInputChange = (e) => {
-  //   const inputValue = e.target.value;
-  //   const [firstName,...lastName] = inputValue.split(" ");
-  //   setSearchFirstName(firstName || "");
-  //   setSearchLastName(lastName.join(" ") || "");
-  // };
-  //search
+
   //search
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -56,8 +56,47 @@ const Members = () => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    const fetchInitialCounts = async () => {
+      await getFilterStatus('Huyết áp cao');
+      await getFilterStatus('Thiếu máu');
+      await getFilterStatus('Viêm gian B');
+      await getFilterStatus('Tiểu đường');
+      await getFilterStatus('Tăng Cholesterol');
+    };
+  
+    fetchInitialCounts();
+  }, []);
+   const getFilterStatus = async (status) =>{
+    try {
+      const response = await axiosClient.get(
+        `api/v1/auth/member/status-filter?status=${status}`
+      );
+
+      if (response) {
+        switch (status) {
+          case 'Huyết áp cao':
+            setTotalCountHighBloodPressure(response?.data.count);
+            setStatus(response?.data.payload)
+            break;
+          case 'Tiểu đường':
+            setTotalCountDiabetes(response?.data.count);
+            setStatus(response?.data.payload)
+            break;
+          case 'Viêm gan B':
+            setTotalCountHepatitisB(response?.data.count);
+            setStatus(response?.data.payload)
+            break;
+          default:
+            break;
+        }}
+    } catch (error) {
+      console.log(error);
+    }
+   }
 
   useEffect(() => {
+
     getAllMembers();
   }, []);
   // Hàm biến đổi định dạng ngày sinh
@@ -85,7 +124,7 @@ const Members = () => {
         <div className="col-md-12">
           <div className="tile">
             <div className="tile-body">
-              <div className="row element-button mb-3 p-3 m-1 shadow">
+              <div className="row mb-3 p-2 mx-0 shadow">
                 {/* <div className="col-sm-3">
                   <NavLink
                     to="/main/customermanagement/addcustomer"
@@ -192,6 +231,42 @@ const Members = () => {
                   </nav>
                 </div>
               </div>
+              <div className="col-md-12 row mt-4 shadow p-2 mx-0">
+                 <h4> Số người có bệnh lý</h4>
+                  <div className="col-md-3" >Cao huyết áp:  
+                    <button
+                    type="button"
+                      className="btn btn-primary btn-sm trash ms-3"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal2"
+                      data-bs-whatever="@mdo"
+                      onClick={() => getFilterStatus('Huyết áp cao')}
+                    >
+                      {"  "}{totalCountHighBloodPressure}
+                    </button>
+                  </div>
+                  <div className="col-md-3">
+                    Đái tháo đường :
+                  </div>
+                  <div className="col-md-3">
+                    Viêm gan B
+                    <button
+                    type="button"
+                      className="btn btn-primary btn-sm trash ms-3 "
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal2"
+                      data-bs-whatever="@mdo"
+                      onClick={() => getFilterStatus('Viêm gan B')}
+                    >
+                      {"  "}{totalCountHepatitisB}
+                    </button>
+                  </div>
+              </div>
+                  {/* Phần hiển thị kết quả lọc ở đây */}
+              
+                  <ShowFilterMember status={status}/>
+              
+
             </div>
           </div>
         </div>
