@@ -46,6 +46,12 @@ const AddFood = () => {
     setFoodIngredient([...foodIngredient, { ingredientId: "", quantity: "" }]);
   };
 
+  const removeIngredient = (index) => {
+    const newIngredients = [...foodIngredient];
+    newIngredients.splice(index, 1);
+    setFoodIngredient(newIngredients);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -209,9 +215,11 @@ const AddFood = () => {
                   +
                 </button>
                 {foodIngredient.map((ingredient, index) => (
-                  <div key={index} className="form-group border row col-md-12 p-2 ms-1 mb-2">
-                    <div className="form-group col-md-3">
-                      <label className="control-label">Nguyên liệu:</label>
+                  <div
+                    key={index}
+                    className="form-group border row col-md-12 p-2 mx-0"
+                  >
+                    <div className="form-group col-md-6">
                       <select
                         className="form-control"
                         id="exampleSelect1"
@@ -221,7 +229,7 @@ const AddFood = () => {
                           handleChange(index, "ingredientId", e.target.value)
                         }
                       >
-                        <option>-- Chọn nhà cung cấp --</option>
+                        <option>-- Chọn nguyên liệu --</option>
                         {ingredients &&
                           ingredients?.map((s) => (
                             <option key={s._id} value={s._id}>
@@ -230,11 +238,11 @@ const AddFood = () => {
                           ))}
                       </select>
                     </div>
-                    <div className="form-group  col-md-3">
-                      <label className="control-label">Số lượng</label>
+                    <div className="form-group  col-md-4">
                       <input
                         className="form-control"
                         type="number"
+                        placeholder="Số lượng"
                         required
                         value={ingredient.quantity}
                         onChange={(e) =>
@@ -242,6 +250,9 @@ const AddFood = () => {
                         }
                       />
                     </div>
+                    <button type="button" className="btn btn-danger col-md-1" onClick={() => removeIngredient(index)}>
+                      x
+                    </button>
                   </div>
                 ))}
               </div>

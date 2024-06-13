@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import { NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTitle } from "../../../hooks/useTitle";
+import UpdateFood from "./UpdateFood";
 
 const Foods = () => {
   const [food, setFood] = useState([]);
@@ -105,6 +106,80 @@ const Foods = () => {
         toast.error('Something went wrong')
     }
   }
+  const [selected,setSelected] = useState(null)
+  const [name, setName] = useState();
+  const [description, setDescription] = useState();
+  const [price, setPrice] = useState();
+  const [discount, setDiscount] = useState();
+  const [categoryId, setCategoryId] = useState();
+  const [foodIngredient, setFoodIngredient] = useState([
+    {
+      ingredientId: "",
+      quantity: "",
+    },
+  ]);
+ 
+  const handleChange = (index, name, value) => {
+    const newFoodIngredients = [...foodIngredient];
+    newFoodIngredients[index][name] = value;
+    setFoodIngredient(newFoodIngredients);
+  };
+
+  const addIngredientField = () => {
+    setFoodIngredient([...foodIngredient, { ingredientId: "", quantity: "" }]);
+  };
+  const removeIngredient = (index) => {
+    const newIngredients = [...foodIngredient];
+    newIngredients.splice(index, 1);
+    setFoodIngredient(newIngredients);
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      if (!name || !description || !price || !categoryId) {
+        toast.error("Please fill in all required fields");
+        return;
+      }
+      const response = await axiosClient.patch(`api/v1/food/${selected._id}`, {
+        name,
+        description,
+        price,
+        discount,
+        categoryId,
+        foodIngredient,
+      });
+      console.log(response.payload);
+      if(response?.data.success){
+        setName("");
+        setDescription("");
+        setPrice("");
+        setDiscount("");
+        setCategoryId("");
+        setFoodIngredient([
+          {
+            ingredientId: "",
+            quantity: "",
+          },
+        ])
+        setFood(food.map((food) => {
+          if (food._id === selected._id) {
+            return { ...food, 
+                      name: name, 
+                      description: description, 
+                      price: price, 
+                      discount: discount,
+                      categoryId: categoryId,
+                      foodIngredient: foodIngredient }; // Cập nhật tên của danh mục tương ứng
+          }
+          return food;
+        }));
+        toast.success(`Cập nhật thành công`);}
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong in input form");
+    }
+  };
   useEffect(() => {
     getAllFoods();
   }, []);
@@ -247,10 +322,22 @@ const Foods = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#exampleModal"
                               data-bs-whatever="@mdo"
+                              onClick={()=>{
+                                setSelected(i);
+                                setName(i.name);
+                                setDescription(i.description)
+                                setPrice(i.price);
+                                setDiscount(i.discount);
+                                setCategoryId()
+                                setFoodIngredient([{ingredientId: i.foodIngredient.ingredientId, quantity: i.foodIngredient.quantity}])
+                              }}
                             >
                               <i className="fas fa-edit"></i>
                             </button>
-                            {/* <UpdateIngredient/> */}
+                            <UpdateFood name={name} setName={setName} description={description} setDescription={setDescription}
+                                        price={price} setPrice={setPrice} discount={discount} setDiscount={setDiscount} 
+                                        categoryId={categoryId} setCategoryId={setCategoryId} foodIngredient={foodIngredient} 
+                                        handleChange={handleChange} handleSubmit={handleUpdate} addIngredientField={addIngredientField} removeIngredient={removeIngredient}/>
                           </td>
                         </tr>
                       ))}

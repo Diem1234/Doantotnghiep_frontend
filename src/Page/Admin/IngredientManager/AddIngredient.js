@@ -54,7 +54,7 @@ const AddIngredient = () => {
       getAllSuppliers();
     },[]);
   return (
-    <main className="app-content p-5">
+    <main className="container ms-5">
       <div className="app-title">
         <ul className="app-breadcrumb breadcrumb">
           <li className="breadcrumb-item" onClick={()=>navigate('/main/productsmanager')}>Danh sách sản phẩm</li>
@@ -64,48 +64,11 @@ const AddIngredient = () => {
         </ul>
       </div>
       <div className="row ">
-        <div className="col-md-11 shadow ">
-          <div className="tile">
+        <div className="col-md-11 shadow p-5">
             <h3 className="tile-title">Tạo mới sản phẩm</h3>
             <div className="tile-body ">
-              <div className="row element-button">
-                {/* <div className="col-sm-3">
-                  <button
-                    type="button"
-                    className="btn btn-add btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    data-bs-whatever="@mdo"
-                  >
-                    <i className="fas fa-folder-plus"></i> Thêm nhà cung cấp
-                  </button>
-                  <AddSuppliers />
-                </div> */}
-                {/* <div className="col-sm-3">
-                  <button
-                    type="button"
-                    className="btn btn-add btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#adddanhmuc"
-                  >
-                    <i className="fas fa-folder-plus"></i> Thêm danh mục
-                  </button>
-                  <AddCategories />
-                </div>
-                <div className="col-sm-2">
-                  <button
-                    type="button"
-                    className="btn btn-add btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addtinhtrang"
-                  >
-                    <i className="fas fa-folder-plus"></i> Thêm trạng thái
-                  </button>
-                  <AddStatus />
-                </div> */}
-              </div>
               <form className="row" onSubmit={handleSubmit}>
-                <div className="form-group col-md-3">
+                <div className="form-group col-md-4">
                   <label className="control-label">Tên nguyên liệu</label>
                   <input
                     className="form-control"
@@ -115,7 +78,7 @@ const AddIngredient = () => {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className="form-group col-md-3 ">
+                <div className="form-group col-md-4 ">
                   <label for="exampleSelect1" className="control-label">
                     Nhà cung cấp
                   </label>
@@ -136,7 +99,7 @@ const AddIngredient = () => {
                       ))}
                   </select>
                 </div>
-                <div className="form-group col-md-3">
+                <div className="form-group col-md-4">
                   <label className="control-label">Số lượng nhập</label>
                   <input
                     className="form-control"
@@ -146,7 +109,7 @@ const AddIngredient = () => {
                     onChange={(e) => setQuantity(e.target.value)}
                   />
                 </div>
-                <div className="form-group col-md-3">
+                <div className="form-group col-md-4">
                   <label className="control-label">Đơn vị</label>
                   <input
                     className="form-control"
@@ -164,11 +127,11 @@ const AddIngredient = () => {
                     onChange={(e) => setDateAdd(e.target.value)}
                   />
                 </div>
-                  <div className="form-group col-md-3">
-                  <button className="btn btn-info mt-3" type="submit">
+                  <div className="row col-md-5 d-flex justify-content-end g-3 mt-5 ">
+                  <button className="btn btn-info col-md-5 " type="submit">
                     Lưu lại
                   </button>
-                  <a className="btn btn-danger" onClick={()=>navigate('/main/productsmanager')}>
+                  <a className="btn btn-danger col-md-5 ms-1" onClick={()=>navigate('/main/productsmanager')}>
                     Trở về
                   </a>
                 </div>
@@ -176,7 +139,7 @@ const AddIngredient = () => {
             </div>
           </div>
         </div>
-      </div>
+ 
     </main>
   );
 };
