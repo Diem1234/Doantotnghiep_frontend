@@ -129,6 +129,7 @@ const AddMembers = () => {
                       handleChange(index, "gender", e.target.value)
                     }
                   >
+                    <option>-- Chọn giới tính --</option>
                     <option value={'Nữ'}>Nữ</option>
                     <option value={'Nam'}>
                       Nam
@@ -181,6 +182,7 @@ const AddMembers = () => {
                       handleChange(index, "trend", e.target.value)
                     }
                   >
+                    <option>-- Chọn xu hướng --</option>
                     <option value={"Bình thường"}>Bình thường</option>
                     <option value={'Giảm cân'}>
                       Giảm cân

@@ -4,18 +4,21 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/auth";
 import { NavLink } from "react-router-dom";
 import { useTitle } from "../../hooks/useTitle";
+import UpdateMember from "./UpdateMember";
 const ProfileManager = () => {
   //context
   const [auth, setAuth] = useAuth();
   //state
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [age, setAge] = useState("");
+  const [status, setStatus] = useState("");
+  const [trend, setTrend] = useState("");
   //const [question,setQuestion]= useState("")
-
+  const [selected,setSelected] = useState(null)
   const { setTitle } = useTitle();
 
   useEffect(() => {
@@ -55,6 +58,65 @@ const ProfileManager = () => {
       toast.error("Something went wrong");
     }
   };
+
+  const handleUpdate = async (e) =>{
+    e.preventDefault();
+    try {
+        const response = await axiosClient.put(`api/v1/auth/accounts/${auth.user._id}/family-members/${selected._id}`, {
+          name: name, 
+          gender: gender, status: status, age: age, trend: trend,phone: phone
+        });
+        if(response){
+            setSelected(null);
+            setName("");
+            setGender("");
+            setAge("");
+            setStatus("");
+            setTrend("");
+            setPhone("");
+            setAuth((prevAuth) => ({
+              ...prevAuth,
+              user: {
+                ...prevAuth.user,
+                familyMembers: prevAuth.user.familyMembers.map((member) =>
+                  member._id === selected._id
+                    ? { ...member, ...response?.data.payload }
+                    : member
+                ),
+              },
+            }));
+            toast.success(`Cập nhật thành công`);
+            console.log('authudt',auth.user)
+        }
+  
+    } catch (error) {
+        toast.error('Something went wrong')
+    }
+  };
+
+  //Delete category
+  const handleDelete = async () =>{
+    try {
+        const response = await axiosClient.delete(`api/v1/auth/accounts/${auth.user._id}/family-members/${selected._id}`);
+        if(response){
+            toast.success('Thành viên đã được xóa');
+            setAuth((prevAuth) => ({
+              ...prevAuth,
+              user: {
+                ...prevAuth.user,
+                familyMembers: prevAuth.user.familyMembers.filter((i) => i._id !== selected._id),
+              },
+            })); 
+            // Loại bỏ danh mục đã được xóa khỏi danh sách
+          //   setProductsList(productsList.filter((product) => product._id !== pId)); 
+          // setReload(prev => !prev); // Tải lại danh sách sản phẩm từ server
+            
+        }
+        
+    } catch (error) {
+        toast.error('Something went wrong')
+    }
+  }
   return (
     <main className="app-content">
       <div className="row">
@@ -126,13 +188,31 @@ const ProfileManager = () => {
                             <td>{member.trend}</td>
                             <td>{member.phone}</td>
                             <td><button
-                              className="btn btn-primary btn-sm trash"
                               type="button"
-                              title="Xóa"
-                             
+                              className="btn btn-primary btn-sm trash"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              data-bs-whatever="@mdo"
+                              onClick={()=>{
+                                setSelected(member);
+                                setName(member.name)
+                                setGender(member.gender)
+                                setAge(member.age)
+                                setStatus(member.status)
+                                setTrend(member.trend)
+                                setPhone(member.phone)
+                              }}
                             >
                               <i className="fas fa-edit"></i>
-                            </button></td>
+                            </button>
+                            <UpdateMember 
+                            name={name} setName={setName} 
+                            gender={gender} setGender={setGender}
+                            status={status} setStatus={setStatus}
+                            age={age} setAge={setAge}
+                            trend={trend} setTrend={setTrend}
+                            phone={phone} setPhone={setPhone} handleSubmit={handleUpdate} handleDelete={handleDelete}/>
+                            </td>
                     </tr>
                     ))}
                   
