@@ -26,7 +26,7 @@ const Menu = () => {
           console.error(error);
         }
       };
-    
+      
         useEffect(() =>{
             getAllFoods();
         },[]);
@@ -73,13 +73,13 @@ const Menu = () => {
                         {food && food.map((f)=> (
                             <div className="col-lg-6" key={f._id}>
                                 <NavLink to={`/menu/foodDetail/${f._id}`} className="d-flex align-items-center">
-                                    <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px'}}/>
+                                    <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px', height: '80px'}}/>
                                     <div className="w-100 d-flex flex-column text-start ps-4">
                                         <h5 className="d-flex justify-content-between border-bottom pb-2">
                                             <span>{f.name}</span>
                                             <span className="text-primary">${f.price}</span>
                                         </h5>
-                                        <small className="fst-italic">{f.description}</small>
+                                        <small className="fst-italic">{f.description.substring(0, 30)}</small>
                                     </div>
                                 </NavLink>
                             </div>  
