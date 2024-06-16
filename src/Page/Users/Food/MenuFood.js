@@ -1,9 +1,10 @@
-import React, { useEffect, useState, memo, useCallback } from "react";
+import React, { useEffect, useState, memo, useCallback, useMemo } from "react";
 import axiosClient from "../../../libraries/axiosClient";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTitle } from "../../../hooks/useTitle";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../../../components/Routes/Prices";
+import ReactPaginate from "react-paginate";
 
 const FoodItem = memo(({ food }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const FoodItem = memo(({ food }) => {
           className="btn btn-outline-warning me-2"
           onClick={() => navigate(`/menu/foodDetail/${food._id}`)}
         >
-          More Details
+          Xem chi tiết
         </button>
       </div>
     </div>
@@ -41,8 +42,20 @@ const MenuFood = () => {
   });
 
   const [food, setFood] = useState([]);
-  const [loading, setLoading] = useState(false);
+
   const [noFoodsFound, setNoFoodsFound] = useState(false);
+  const [selected,setSelected] = useState(null)
+  const itemsPerPage = 6; // Số mục trên mỗi trang
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  // Tính toán dữ liệu hiện tại cho trang
+  const offset = currentPage * itemsPerPage;
+  const currentFood = useMemo(() => food.slice(offset, offset + itemsPerPage), [food, offset, itemsPerPage]);
+  const pageCount = Math.ceil(food.length / itemsPerPage);
 
   const { setTitle } = useTitle();
   useEffect(() => {
@@ -97,7 +110,7 @@ const MenuFood = () => {
 
   // Memoize hàm fetchFood
   const fetchFood = useCallback(async () => {
-    setLoading(true);
+
     try {
       const { data } = await axiosClient.post('api/v1/food/food-filters', {
         checked: filters.checked,
@@ -108,7 +121,7 @@ const MenuFood = () => {
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
+   
   }, [filters]);
 
   // Cập nhật URL khi thay đổi bộ lọc
@@ -144,7 +157,7 @@ const MenuFood = () => {
       <div className="container">
         <div className="row mt-3 mb-3">
           <div className="col-md-3 p-5 form-similar">
-            <h4 className="text-center mt-3">Filter By Category</h4>
+            <h4 className="text-center mt-3">Lọc theo danh mục</h4>
             <div className="d-flex flex-column g-3">
               {categories?.map((c) => (
                 <Checkbox
@@ -155,7 +168,7 @@ const MenuFood = () => {
                 </Checkbox>
               ))}
             </div>
-            <h4 className="text-center mt-4">Filter By Price</h4>
+            <h4 className="text-center mt-4">Lọc theo giá</h4>
             <div className="d-flex flex-column mb-5">
               <Radio.Group onChange={(e) => handlePriceFilter(e.target.value)}>
                 {Prices?.map((p) => (
@@ -170,7 +183,7 @@ const MenuFood = () => {
                 className="btn btn-danger"
                 onClick={() => window.location.reload()}
               >
-                RESET FILTERS
+                Reset lại
               </button>
             </div>
           </div>
@@ -183,24 +196,36 @@ const MenuFood = () => {
               </div>
             ) : (
               <div className="d-flex flex-wrap">
-                {food.map((p) => (
-                  <FoodItem key={p._id} food={p} />
+                {currentFood.map((p,index) => (
+                  <FoodItem key={index} food={p} />
                 ))}
               </div>
             )}
             </div>
             <div className="m-2 p-3">
-              {food && food.length < 0 && (
-                <button
-                  className="btn btn-warning"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Add pagination logic here
-                  }}
-                >
-                  {loading ? "Loading..." : "Load more"}
-                </button>
-              )}
+           
+                <nav aria-label="Page navigation example ">
+                  <ReactPaginate
+                    previousLabel={"«"}
+                    nextLabel={"»"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination-sm"}
+                    activeClassName={"active"}
+                    pageLinkClassName={"page-link"}
+                    previousLinkClassName={"page-link"}
+                    nextLinkClassName={"page-link"}
+                    pageClassName={"page-item"}
+                    previousClassName={"page-item"}
+                    nextClassName={"page-item"}
+                  />
+                </nav>
+              
             </div>
           </div>
         </div>

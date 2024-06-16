@@ -16,7 +16,7 @@ const Menu = () => {
           const response = await axiosClient.get('api/v1/food/');
           console.log(response)
           if(response){
-            setFood(response.data.payload);
+            setFood(response.data.payload.slice(0, 8));
           }else{
             alert('khong co du lieu!')
           }
@@ -70,7 +70,8 @@ const Menu = () => {
                 <div className="tab-content">
                     <div id="tab-1" className="tab-pane fade show p-0 active">
                         <div className="row g-4">
-                        {food && food.map((f)=> (
+                        {food && food.map((f,index)=> (
+                            index < 8 && (
                             <div className="col-lg-6" key={f._id}>
                                 <NavLink to={`/menu/foodDetail/${f._id}`} className="d-flex align-items-center">
                                     <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px', height: '80px'}}/>
@@ -83,15 +84,16 @@ const Menu = () => {
                                     </div>
                                 </NavLink>
                             </div>  
-                        ))}         
+                        )))}         
                         </div>
                     </div>
                     <div id="tab-2" className="tab-pane fade show p-0">
                         <div className="row g-4">
-                        {food && food.map((f)=> (
+                        {food && food.map((f,index)=> (
+                            index < 8 && (
                             <div className="col-lg-6" key={f._id}>
                                 <div className="d-flex align-items-center">
-                                    <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px'}}/>
+                                    <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px', height: '80px'}}/>
                                     <div className="w-100 d-flex flex-column text-start ps-4">
                                         <h5 className="d-flex justify-content-between border-bottom pb-2">
                                             <span>{f.name}</span>
@@ -101,15 +103,16 @@ const Menu = () => {
                                     </div>
                                 </div>
                             </div>  
-                        ))}   
+                        )))}   
                         </div>
                     </div>
                     <div id="tab-3" className="tab-pane fade show p-0">
                         <div className="row g-4">
-                        {food && food.map((f)=> (
+                        {food && food.map((f,index)=> (
+                            index < 8 && (
                             <div className="col-lg-6" key={f._id}>
                                 <div className="d-flex align-items-center">
-                                    <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px'}}/>
+                                    <img className="flex-shrink-0 img-fluid rounded" src={f.photo} alt="" style={{width: '80px', height: '80px'}}/>
                                     <div className="w-100 d-flex flex-column text-start ps-4">
                                         <h5 className="d-flex justify-content-between border-bottom pb-2">
                                             <span>{f.name}</span>
@@ -119,7 +122,7 @@ const Menu = () => {
                                     </div>
                                 </div>
                             </div>  
-                        ))}   
+                        )))}   
                            
                         </div>
                     </div>
