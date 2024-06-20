@@ -13,8 +13,8 @@ const Members = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const { setTitle } = useTitle();
-  
-  const [totalCount, setTotalCount] = useState(0);
+  const [totalCountGastritis, setTotalCountGastritis] = useState(0)
+  const [totalCountNormal, setTotalCountNormal] = useState(0);
   const [totalCountHighBloodPressure, setTotalCountHighBloodPressure] = useState(0);
 const [totalCountDiabetes, setTotalCountDiabetes] = useState(0);
 const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
@@ -58,11 +58,11 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
   };
   useEffect(() => {
     const fetchInitialCounts = async () => {
+      await getFilterStatus('Bình thường');
       await getFilterStatus('Huyết áp cao');
-      await getFilterStatus('Thiếu máu');
+      await getFilterStatus('Viêm dạ dày');
       await getFilterStatus('Viêm gian B');
       await getFilterStatus('Tiểu đường');
-      await getFilterStatus('Tăng Cholesterol');
     };
   
     fetchInitialCounts();
@@ -75,6 +75,10 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
 
       if (response) {
         switch (status) {
+          case 'Bình thường':
+            setTotalCountNormal(response?.data.count);
+            setStatus(response?.data.payload)
+            break;
           case 'Huyết áp cao':
             setTotalCountHighBloodPressure(response?.data.count);
             setStatus(response?.data.payload)
@@ -85,6 +89,10 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
             break;
           case 'Viêm gan B':
             setTotalCountHepatitisB(response?.data.count);
+            setStatus(response?.data.payload)
+            break;
+          case 'Viêm dạ dày':
+            setTotalCountGastritis(response?.data.count);
             setStatus(response?.data.payload)
             break;
           default:
@@ -247,6 +255,16 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
                   </div>
                   <div className="col-md-3">
                     Đái tháo đường :
+                    <button
+                    type="button"
+                      className="btn btn-primary btn-sm trash ms-3 "
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal2"
+                      data-bs-whatever="@mdo"
+                      onClick={() => getFilterStatus('Tiểu đường')}
+                    >
+                      {"  "}{totalCountDiabetes}
+                    </button>
                   </div>
                   <div className="col-md-3">
                     Viêm gan B
@@ -261,12 +279,23 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
                       {"  "}{totalCountHepatitisB}
                     </button>
                   </div>
+                  <div className="col-md-3">
+                    Viêm dạ dày
+                    <button
+                    type="button"
+                      className="btn btn-primary btn-sm trash ms-3 "
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal2"
+                      data-bs-whatever="@mdo"
+                      onClick={() => getFilterStatus('Viêm dạ dày')}
+                    >
+                      {"  "}{totalCountGastritis}
+                    </button>
+                  </div>
               </div>
                   {/* Phần hiển thị kết quả lọc ở đây */}
               
                   <ShowFilterMember status={status}/>
-              
-
             </div>
           </div>
         </div>

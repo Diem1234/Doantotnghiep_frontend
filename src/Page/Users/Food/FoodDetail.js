@@ -46,13 +46,14 @@ const FoodDetail = () => {
 
   return (
     <div className="container">
-      <div className="row mx-auto" style={{ width: "90%" }}>
-        <div className="col-md-5 p-3 shadow justif">
+      <div className="row d-flex mx-auto" style={{ width: "90%" }}>
+        <div className="col-md-4 p-3 shadow justif">
           <img src={food.photo} width={"99%"} height={"400px"} />
         </div>
-        <div className="col-md-6 shadow border ms-3">
-          <h2 className="text-center">{food.name}</h2>
-          <p className="text-center">{food.description}</p>
+        <div className="col-md-7 row shadow border border-warning ms-3">
+          <h2 className="justify-content-center col-md-12 d-flex align-items-center">{food.name}</h2>
+          
+          <div className="col-md-5">
           <p>{food.categoryName}</p>
           <p>{food.price}</p>
           {food.foodIngredient && (
@@ -62,12 +63,13 @@ const FoodDetail = () => {
                 {food.foodIngredient.map((ingredient) => (
                   <li key={ingredient._id}>
                     <p>Loại nguyên liệu: {ingredient.ingredientName}</p>
-                    <p>Lượng sư dụng: {ingredient.quantity}</p>
+                    <p>Lượng sư dụng: {ingredient.quantity}{" "}{ingredient.ingredientId.unit}</p>
                   </li>
                 ))}
               </ul>
             </>
-          )}
+          )}</div>
+          <p className="text-break col-md-7 border-start border-warning">{food.description}</p>
         </div>
       </div>
       <div className="row mt-5 shadow">
@@ -84,7 +86,7 @@ const FoodDetail = () => {
              <div className="card-body">
                <h5 className="card-title">{p.name}</h5>
                <p className="card-text">
-                 {p.description}...
+                 {p.description.substring(0, 30)}...
                </p>
                <p className="card-text">{p.price} vnd</p>
                <NavLink to={`/menu/foodDetail/${p._id}`}

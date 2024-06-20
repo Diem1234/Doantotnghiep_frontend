@@ -71,9 +71,9 @@ const Login = () => {
               <CCard className="p-4 pt-5 pb-5 shadow">
                 <CCardBody>
                   <CForm onSubmit={handleSubmit}>
-                    <h1 className="text-center text-primary">Login</h1>
+                    <h1 className="text-center text-primary">Đăng Nhập</h1>
                     <p className="text-medium-emphasis">
-                      Sign In to your account
+                      Nhập vào tài khoản của bạn
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -94,7 +94,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         type="password"
-                        placeholder="Password"
+                        placeholder="Mật khẩu"
                         autoComplete="current-password"
                       />
                     </CInputGroup>
@@ -107,7 +107,7 @@ const Login = () => {
                       <CCol xs={6} className="text-right">
                         <Link to="/forgot-password">
                           <CButton color="link" className="px-0">
-                            Forgot password?
+                            Quên mật khẩu?
                           </CButton>
                         </Link>
                       </CCol>
@@ -123,21 +123,18 @@ const Login = () => {
                   <div>
                     <h1 className="text-white">Bếp Việt</h1>
                     <p>
-                      When logging into the system of a website or application,
-                      the user will need to provide login information to
-                      authenticate his/her identity and access the system's
-                      features and services.
+                     Bếp Việt mang đến nguồn cảm hứng vô tận để bạn khám phá và trải nghiệm nền ẩm thực đa dạng và độc đáo của Việt Nam.
                     </p>
-                    {/* <Link to="/register">
+                    <Link to="/register">
                       <CButton
                         color="primary"
                         className="mt-3 "
                         active
                         tabIndex={-1}
                       >
-                        Register Now!
+                        Đăng Ký 
                       </CButton>
-                    </Link> */}
+                    </Link>
                   </div>
                 </CCardBody>
               </CCard>

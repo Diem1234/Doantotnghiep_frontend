@@ -6,7 +6,7 @@
 .buttonlg {
     border: none;
     color: #fff;
-    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    background-image: linear-gradient(30deg, #fea116, #d8f74c);
     border-radius: 20px;
     background-size: 100% auto;
     font-family: inherit;
@@ -35,13 +35,13 @@
     }
    }
 .bg-login{
-    background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20210501/pngtree-pink-orange-gold-marble-background-image_696953.jpg) !important;
+    background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20230412/pngtree-food-vegetable-background-border-image_2215032.jpg) !important;
     background-size: cover;
     background-repeat: no-repeat;
 
 }
 .bg-forgot{
-    background-image: url(https://img5.thuthuatphanmem.vn/uploads/2021/11/22/hinh-nen-mau-xanh-ngoc-cho-laptop_100603365.jpg) !important;
+    background-image: url(https://png.pngtree.com/background/20230413/original/pngtree-food-gourmet-border-picture-image_2423214.jpg) !important;
     background-size: cover;
     background-repeat: no-repeat;
 

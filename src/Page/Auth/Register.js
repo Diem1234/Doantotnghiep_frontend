@@ -48,8 +48,8 @@ const Register = () => {
             <CCard className="mx-4 shadow card2 p-5">
               <CCardBody className="p-4">
                 <CForm>
-                  <h1 className='text-center text-white mb-3'>Register</h1>
-                  <p className="text-medium-emphasis">Create your account</p>
+                  <h1 className='text-center text-white mb-3'>Đăng Ký</h1>
+                  <p className="text-medium-emphasis">Tạo tài khoản của bạn</p>
                 
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
@@ -62,13 +62,13 @@ const Register = () => {
                     </CInputGroupText>
                     <CFormInput
                       type="password"
-                      placeholder="Password"
+                      placeholder="Mật khẩu"
                       autoComplete="new-password"value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="primary" onClick={handleRegister}>Create Account</CButton>
+                    <CButton color="primary" onClick={handleRegister}>Đăng ký</CButton>
                   </div>
                 </CForm>
               </CCardBody>

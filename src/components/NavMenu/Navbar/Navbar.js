@@ -89,7 +89,7 @@ const Navbar = () => {
                         )}
                       
                 </div>
-                <a href="" className="btn btn-primary py-2 px-4">Book A Table</a>
+                <NavLink to="/suggestions" className="btn btn-primary py-2 px-4">Gợi ý món ăn</NavLink>
             </div>
         </nav>
     </div>

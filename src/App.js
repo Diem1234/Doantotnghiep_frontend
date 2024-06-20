@@ -25,6 +25,7 @@ import Members from './Page/Admin/MemberManager/Members';
 import MenuFood from './Page/Users/Food/MenuFood';
 import ProfileManager from './Page/Profile/ProfieManager';
 import AddMembers from './Page/Profile/AddMembers';
+import FoodSuggestions from './Page/Suggestions/FoodSuggestions';
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Main />} >
           <Route path="/" element={<Home />} />
+          <Route path="/suggestions" element={<FoodSuggestions />} />
           <Route path="/menu" element={<MenuFood />} />
           <Route path="/menu/:categoryId" element={<MenuFood />} />
           <Route path="/about" element={<About />} />
