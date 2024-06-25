@@ -38,17 +38,17 @@ const FoodSuggestions = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
-  const [filters, setFilters] = useState({
-    checked: [],
-    radio: [],
-  });
-
   const [food, setFood] = useState([]);
-
   const [noFoodsFound, setNoFoodsFound] = useState(false);
   const [selected,setSelected] = useState(null)
   const itemsPerPage = 6; // Số mục trên mỗi trang
   const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    if (!auth.user) { 
+      window.location.href = '/login';
+    }
+}, [auth, setAuth]);
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
@@ -67,9 +67,16 @@ const FoodSuggestions = () => {
 
 
 
-  const getAllFoods = async () => {
+  const getFoodSuggest = async () => {
     try {
-      const response = await axiosClient.get('api/v1/food/');
+      if (!auth?.user?._id || !selected?._id) {
+        // Handle the case where auth.user._id or selected._id is null or undefined
+        setFood([]);
+        setNoFoodsFound(true);
+        return;
+      }
+  
+      const response = await axiosClient.get(`api/v1/auth/accounts/${auth?.user._id}/get-suggest/${selected._id}`);
       console.log(response)
       if(response){
         setFood(response.data.payload.slice(0, 5));
@@ -85,8 +92,11 @@ const FoodSuggestions = () => {
   };
   
     useEffect(() =>{
-        getAllFoods();
+        getFoodSuggest();
     },[]);
+    const handleButtonClick = () => {
+      getFoodSuggest();
+    };
 
   return (
     <div className="container-xxl py-5">
@@ -97,9 +107,12 @@ const FoodSuggestions = () => {
 
             <div className="d-flex flex-column g-3">
             {auth.user && auth.user.familyMembers.map((member) =>(
-                <NavLink to="/" className="list-group-item list-group-item-action">
+              <ul key={member._id} className="list-group ">
+                <li  className="list-group-item list-group-item-action" onClick={()=>{setSelected(member)
+                  handleButtonClick()}}>
                 {member.name}
-            </NavLink>
+            </li>
+            </ul>
             ))}
             </div>
             

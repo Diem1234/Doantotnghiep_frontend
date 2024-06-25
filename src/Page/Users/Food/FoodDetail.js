@@ -46,7 +46,7 @@ const FoodDetail = () => {
 
   return (
     <div className="container">
-      <div className="row d-flex mx-auto" style={{ width: "90%" }}>
+      <div className="row d-flex mx-auto" style={{ width: "100%" }}>
         <div className="col-md-4 p-3 shadow justif">
           <img src={food.photo} width={"99%"} height={"400px"} />
         </div>

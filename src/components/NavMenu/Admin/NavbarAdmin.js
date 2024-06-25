@@ -16,17 +16,17 @@ const NavbarAdmin = () => {
                 <NavLink to="/dashboard/admin/food" className="list-group-item list-group-item-action">
                     Quản lý món ăn
                 </NavLink>
-                <NavLink  className="dropend list-group-item list-group-item-action dropdown-toggle" data-bs-toggle="dropdown">
+                <NavLink  className="dropend list-group-item  dropdown-toggle " data-bs-toggle="dropdown">
                     Quản lý nguyên liệu
                     </NavLink>
                     <ul className="dropdown-menu">
                         <li>
-                            <NavLink to="/dashboard/admin/add_ingredient" className="dropdown-item">
+                            <NavLink to="/dashboard/admin/add_ingredient" className="dropdown-item list-group-item-action">
                             Thêm nguyên liệu
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/dashboard/admin/ingredient" className="dropdown-item">
+                            <NavLink to="/dashboard/admin/ingredient" className="dropdown-item list-group-item-action">
                             Danh sách nguyên liệu
                             </NavLink>
                         </li>
