@@ -21,7 +21,7 @@ const AddFood = () => {
       quantity: "",
     },
   ]);
-  const [photo, setPhoto] = useState();
+  const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
   const [subphoto, setSubphoto] = useState([]);
 
@@ -56,32 +56,45 @@ const AddFood = () => {
     e.preventDefault();
     try {
       if (!name || !description || !price || !categoryId) {
-        toast.error("Please fill in all required fields");
+        toast.error("Vui lòng điền đầy đủ các trường bắt buộc");
         return;
       }
-
-      const response = await axiosClient.post("api/v1/food/create", {
-        name,
-        description,
-        price,
-        discount,
-        categoryId,
-        photo,
-        subphoto,
-        foodIngredient,
+  
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("discount", discount);
+      formData.append("categoryId", categoryId);
+      formData.append("photo", photo);
+  
+      // Thêm từng ảnh trong subphoto vào FormData
+      subphoto.forEach((image, index) => {
+        formData.append(`subphoto[${index}]`, image);
       });
-      console.log(response.payload);
-      if (response) {
-        toast.success(response.message);
-        console.log(response.message);
-        // setName(response.payload);
-        setFood([...food, response.data.payload]); // Thêm danh mục mới vào danh sách
+  
+      // Chuyển đổi từng đối tượng foodIngredient thành chuỗi JSON trước khi thêm vào FormData
+      foodIngredient.forEach((ingredient, index) => {
+        formData.append(`foodIngredient[${index}][ingredientId]`, ingredient.ingredientId);
+        formData.append(`foodIngredient[${index}][quantity]`, ingredient.quantity);
+      });
+  
+      const response = await axiosClient.post("api/v1/food/create", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setFood([...food, response.data.payload]); // Thêm món ăn mới vào danh sách
         navigate("/dashboard/admin/food");
+      } else {
+        toast.error(response.data.message);
       }
-      console.log(subphoto);
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong in input form");
+      toast.error("Đã xảy ra lỗi khi gửi biểu mẫu");
     }
   };
 
@@ -115,6 +128,7 @@ const AddFood = () => {
     getAllCategories();
     getAllIngredients();
   }, []);
+  
   return (
     <main className="container">
       <div className="app-title">
@@ -134,6 +148,7 @@ const AddFood = () => {
         <div className="col-md-12">
           <h3 className="tile-title">Tạo mới sản phẩm</h3>
             <form className="row p-3 shadow" onSubmit={handleSubmit}>
+              <div className="row col-md-9">
               <div className="form-group col-md-3">
                 <label className="control-label">Tên sản phẩm</label>
                 <input
@@ -149,10 +164,10 @@ const AddFood = () => {
                 <label className="control-label">Hình ảnh</label>
                 <input
                   className="form-control"
-                  type="text"
+                  type="file"
                   required
-                  value={photo}
-                  onChange={(e) => setPhoto(e.target.value)}
+                  name="photo"
+                  onChange={(e) => setPhoto(e.target.files[0])}
                 />
               </div>
               <div className="form-group col-md-3">
@@ -205,7 +220,19 @@ const AddFood = () => {
                 >
                   {description}
                 </textarea>
-              </div>
+              </div></div>
+              <div className='col-md-3'>
+                            {photo && (
+                                <div className='text-center'>
+                                    <img
+                                        src={URL.createObjectURL(photo)}
+                                        alt='product_photo'
+                                        height={"200px"}
+                                        className='img img-responsive'
+                                    />
+                                </div>
+                            )}
+                        </div>
               <div >
                 <button
                   type="button"

@@ -8,7 +8,7 @@ import { useTitle } from "../../../hooks/useTitle";
 
 const Categories = () => {
   const [categories,setCategories]= useState([]);
-  const [photo,setPhoto]=useState("")
+  const [photo,setPhoto]=useState(null)
   const [name,setName] = useState("")
   const [visible,setVisible]= useState(false)
   const [selected,setSelected] = useState(null)
@@ -34,13 +34,16 @@ const Categories = () => {
   //handle Form
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('photo', photo);
     try {
-      const response = await axiosClient.post("api/v1/categories/create", { name, photo });
+      const response = await axiosClient.post("api/v1/categories/create", formData);
       if (response?.data.payload) {
         
         console.log(response.data.message)
-        setName();
-        setPhoto();
+        setName('');
+        setPhoto(null);
         setCategories([...categories, response.data.payload]);
         toast.success(response.data.message); // Thêm danh mục mới vào danh sách
       } 
@@ -129,11 +132,12 @@ const handleUpdate = async (e) =>{
             </div>
             <div className="mb-3">
               <input
-                type="text"
+               
                 className="form-control"
                 placeholder="image"
-                value={photo}
-                onChange={(e) => setPhoto(e.target.value)}
+                name="photo"
+                type="file"
+                onChange={(e) => setPhoto(e.target.files[0])}
                 required
               />
             </div>

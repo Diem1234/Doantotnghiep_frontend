@@ -191,6 +191,7 @@ const Foods = () => {
     const year = date.getFullYear().toString().slice(0);
     return `${day}/${month}/${year}`;
   };
+  
   return (
     <main className="app-content p-3">
       <div className="app-title">

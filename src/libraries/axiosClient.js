@@ -5,7 +5,7 @@ import axios from "axios";
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_PUBLIC_BASE_URL,
   headers: {
-    Pragma: "no-cache"
+    Pragma: "no-cache",
   }
 });
 
