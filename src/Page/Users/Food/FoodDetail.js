@@ -99,7 +99,7 @@ const FoodDetail = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center">No similar product found</p>
+        <p className="text-center">Không tìm thấy sản phẩm tương tự</p>
       )}
       </div>
     </div>

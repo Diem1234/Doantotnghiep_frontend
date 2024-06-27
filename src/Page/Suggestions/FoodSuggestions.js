@@ -119,12 +119,11 @@ const FoodSuggestions = () => {
            
           </div>
           <div className="col-md-9">
+            <h5 className="mt-3">Các món nên ăn</h5>
             <div className="d-flex flex-wrap">
-            <h5 className="text-center mt-3">Các món nên ăn</h5>
             {noFoodsFound ? (
               <div className="text-center my-5">
                 <h3>Không tìm thấy món ăn nào</h3>
-                <p>Hãy thử thay đổi bộ lọc để tìm kiếm</p>
               </div>
             ) : (
               <div className="d-flex flex-wrap">
