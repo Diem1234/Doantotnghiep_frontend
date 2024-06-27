@@ -47,7 +47,7 @@ const About = () => {
           </div>
           <div className="col-lg-6">
             <h5 className="section-title ff-secondary text-start text-primary fw-normal">
-              About Us
+              Về chúng tôi
             </h5>
             <h1 className="mb-4">
               Chào mừng đến với{" "}

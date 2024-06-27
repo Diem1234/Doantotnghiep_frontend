@@ -306,7 +306,7 @@ const Foods = () => {
                       </td> */}
                           <td>{i.name}</td>
                           <td>{i.price}</td>
-                          <td>{i.categoryId}</td>
+                          <td>{i.category.name}</td>
 
                           <td className="table-td-center">
                             <button

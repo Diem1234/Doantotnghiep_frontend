@@ -33,9 +33,9 @@ const Navbar = () => {
                     <div className="nav-item dropdown">
                         <Link to="/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trang</Link>
                         <div className="dropdown-menu m-0">
-                            <Link to="/booking" className="dropdown-item">Đặt hẹn trước</Link>
+                            {/* <Link to="/booking" className="dropdown-item">Đặt hẹn trước</Link> */}
                             <Link to="/team" className="dropdown-item">Danh mục</Link>
-                            <Link to="/testimonial" className="dropdown-item">Testimonial</Link>
+                            {/* <Link to="/testimonial" className="dropdown-item">Testimonial</Link> */}
                         </div>
                     </div>
                     <Link to="/contact" className="nav-item nav-link">Liên hệ</Link>

@@ -4530,9 +4530,9 @@ fieldset:disabled .btn {
 }
 .list-group-item.disabled,
 .list-group-item:disabled {
-  color: #6c757d;
+  color: #fff;
   pointer-events: none;
-  background-color: #fff;
+  background-color: #fea116;
 }
 .list-group-item.active {
   z-index: 2;

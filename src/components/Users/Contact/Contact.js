@@ -12,7 +12,7 @@ const Contact = () => {
     <div className="container-xxl py-5">
             <div className="container">
                 <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 className="section-title ff-secondary text-center text-primary fw-normal">Contact Us</h5>
+                    <h5 className="section-title ff-secondary text-center text-primary fw-normal">Liên hệ</h5>
                     <h1 className="mb-5">Liên hệ nếu có bất kỳ câu hỏi nào</h1>
                 </div>
                 <div className="row g-4">
