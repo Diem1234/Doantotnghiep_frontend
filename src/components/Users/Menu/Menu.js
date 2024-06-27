@@ -80,7 +80,7 @@ const Menu = () => {
                                             <span>{f.name}</span>
                                             <span className="text-primary">${f.price}</span>
                                         </h5>
-                                        <small className="fst-italic">{f.description.substring(0, 30)}</small>
+                                        <small className="fst-italic">{f.description.substring(0, 31)}</small>
                                     </div>
                                 </NavLink>
                             </div>  
@@ -99,7 +99,7 @@ const Menu = () => {
                                             <span>{f.name}</span>
                                             <span className="text-primary">${f.price}</span>
                                         </h5>
-                                        <small className="fst-italic">{f.description.substring(0, 30)}</small>
+                                        <small className="fst-italic">{f.description.substring(0, 31)}</small>
                                     </div>
                                 </div>
                             </div>  
@@ -118,7 +118,7 @@ const Menu = () => {
                                             <span>{f.name}</span>
                                             <span className="text-primary">${f.price}</span>
                                         </h5>
-                                        <small className="fst-italic">{f.description.substring(0, 30)}</small>
+                                        <small className="fst-italic">{f.description.substring(0, 31)}</small>
                                     </div>
                                 </div>
                             </div>  
