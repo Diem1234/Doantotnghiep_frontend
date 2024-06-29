@@ -329,8 +329,13 @@ const Foods = () => {
                                 setDescription(i.description)
                                 setPrice(i.price);
                                 setDiscount(i.discount);
-                                setCategoryId()
-                                setFoodIngredient([{ingredientId: i.foodIngredient.ingredientId, quantity: i.foodIngredient.quantity}])
+                                setCategoryId(i.categoryId)
+                                setFoodIngredient(i.foodIngredient.map(i=>{
+                                  return{
+                                    ingredientId: i.ingredientId,
+                                    quantity: i.quantity,
+                                  }
+                                }))
                               }}
                             >
                               <i className="fas fa-edit"></i>

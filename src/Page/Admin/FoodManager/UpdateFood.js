@@ -33,7 +33,7 @@ const UpdateFood = ({
       console.error(error);
     }
   };
-
+console.log({foodIngredient});
   const getAllCategories = async () => {
     try {
       const response = await axiosClient.get("api/v1/categories");

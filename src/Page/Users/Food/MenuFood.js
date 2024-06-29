@@ -76,20 +76,7 @@ const MenuFood = () => {
     }
   };
 
-  const getAllFoods = async () => {
-    try {
-      const response = await axiosClient.get("api/v1/food/");
-      console.log(response);
-      if (response) {
-        setFood(response.data.payload.slice(0, 8));
-      } else {
-        alert("khong co du lieu!");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  //filter by cat
+
   const handleFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -101,26 +88,30 @@ const MenuFood = () => {
     }
     setChecked(all);
   };
-  useEffect(() => {
-    if (!checked.length || !radio.length || !categoryId) getAllFoods();
-  }, [checked.length, radio.length]);
+
 
   useEffect(() => {
     console.log("check", checked, radio);
     
-    if (checked.length || radio.length || categoryId) filterFood();
-  }, [checked, radio, categoryId]);
+    filterFood();
+  }, [checked, radio]);
 
   //get filter product
   const filterFood = async (e) => {
-    try {
-      const response = await axiosClient.get(
-        `api/v1/food/foods/cate/${!categoryId ? "" : categoryId}`,
-        {
+
+    try { 
+      const response = await axiosClient.post(
+        `api/v1/food/foods/cate/`,
+      checked.length >0 || radio.length>0  ? { 
           checked: checked.length > 0 ? checked : [],
           radio: radio.length > 0 ? radio : [],
+        } :{
+          categoryId:categoryId ?categoryId:undefined,
+          checked :[],
+          radio:[]
         }
       );
+     console.log("check and radio", checked, radio)
       console.log("req.params.categoryId:", categoryId);
       console.log("data:", response.data);
       setFood(response.data?.payload);
