@@ -59,10 +59,10 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
   useEffect(() => {
     const fetchInitialCounts = async () => {
       await getFilterStatus('Bình thường');
-      await getFilterStatus('Huyết áp cao');
-      await getFilterStatus('Viêm dạ dày');
-      await getFilterStatus('Viêm gian B');
-      await getFilterStatus('Tiểu đường');
+      await getFilterStatus('Bệnh cao huyết áp');
+      await getFilterStatus('Bênh Viêm dạ dày');
+      await getFilterStatus('Bệnh Viêm gan B');
+      await getFilterStatus('Bệnh tiểu đường');
     };
   
     fetchInitialCounts();
@@ -79,19 +79,19 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
             setTotalCountNormal(response?.data.count);
             setStatus(response?.data.payload)
             break;
-          case 'Huyết áp cao':
+          case 'Bệnh cao huyết áp':
             setTotalCountHighBloodPressure(response?.data.count);
             setStatus(response?.data.payload)
             break;
-          case 'Tiểu đường':
+          case 'Bệnh tiểu đường':
             setTotalCountDiabetes(response?.data.count);
             setStatus(response?.data.payload)
             break;
-          case 'Viêm gan B':
+          case 'Bệnh Viêm gan B':
             setTotalCountHepatitisB(response?.data.count);
             setStatus(response?.data.payload)
             break;
-          case 'Viêm dạ dày':
+          case 'Bệnh Viêm dạ dày':
             setTotalCountGastritis(response?.data.count);
             setStatus(response?.data.payload)
             break;
@@ -248,7 +248,7 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal2"
                       data-bs-whatever="@mdo"
-                      onClick={() => getFilterStatus('Huyết áp cao')}
+                      onClick={() => getFilterStatus('Bệnh cao huyết áp')}
                     >
                       {"  "}{totalCountHighBloodPressure}
                     </button>
@@ -261,7 +261,7 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal2"
                       data-bs-whatever="@mdo"
-                      onClick={() => getFilterStatus('Tiểu đường')}
+                      onClick={() => getFilterStatus('Bệnh tiểu đường')}
                     >
                       {"  "}{totalCountDiabetes}
                     </button>
@@ -274,7 +274,7 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal2"
                       data-bs-whatever="@mdo"
-                      onClick={() => getFilterStatus('Viêm gan B')}
+                      onClick={() => getFilterStatus('Bệnh Viêm gan B')}
                     >
                       {"  "}{totalCountHepatitisB}
                     </button>
@@ -287,7 +287,7 @@ const [totalCountHepatitisB, setTotalCountHepatitisB] = useState(0);
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal2"
                       data-bs-whatever="@mdo"
-                      onClick={() => getFilterStatus('Viêm dạ dày')}
+                      onClick={() => getFilterStatus('Bệnh Viêm dạ dày')}
                     >
                       {"  "}{totalCountGastritis}
                     </button>

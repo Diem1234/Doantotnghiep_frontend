@@ -62,8 +62,8 @@ const FoodDetail = () => {
               <ul>
                 {food.foodIngredient.map((ingredient) => (
                   <li key={ingredient._id}>
-                    <p>Loại nguyên liệu: {ingredient.ingredientName}</p>
-                    <p>Lượng sư dụng: {ingredient.quantity}{" "}{ingredient.ingredientId.unit}</p>
+                    <p>{ingredient.ingredientName}{"_____"} {ingredient.quantity}{" "}{ingredient.ingredientId.unit}</p>
+                    
                   </li>
                 ))}
               </ul>

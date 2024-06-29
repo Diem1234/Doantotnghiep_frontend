@@ -8,6 +8,8 @@ import { useAuth } from "../../context/auth";
 import { useTitle } from "../../hooks/useTitle";
 import axiosClient from "../../libraries/axiosClient";
 
+
+
 const FoodItem = memo(({ food }) => {
   const navigate = useNavigate();
 
@@ -47,7 +49,11 @@ const FoodSuggestions = () => {
   useEffect(() => {
     if (!auth.user) { 
       window.location.href = '/login';
-    }
+    }else if(auth?.user.familyMembers.lenght === 0)
+    {
+      alert('Bạn phải nhập thông tin thành viên gia đình bạn') 
+      window.location.href = '/dashboard/user/profile';}
+      
 }, [auth, setAuth]);
 
   const handlePageClick = (event) => {
